@@ -1,0 +1,29 @@
+<?php
+$this->headTitle('Welcome');
+
+$this->mainMenu()->setActiveItemId('home');
+
+$this->pageBreadcrumbs()->setItems([
+            'Home'=>$this->url('home')
+            ]);
+?>
+
+<h1>Welcome</h1>
+
+<p>
+    Este é o aplicativo Challenges-appo desenvolvido por Marcelo Silveira. Ele demonstra
+    como implementar a autenticação do usuário e como restringir certas páginas a serem
+    acessado por usuários não autorizados.
+</p>
+
+<p>
+    Cliquem no botão <em>Login</em> no canto superior direito. Para entrar, usando as
+    seguintes credenciais:
+    <ul>
+        <li>Usuário: <em>admin@example.com</em></li>
+        <li>Senha: <em>Secur1ty</em></li>
+    </ul>    
+</p>
+
+
+

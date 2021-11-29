@@ -1,0 +1,31 @@
+<?php
+$this->headTitle('Obrigado');
+?>
+
+<div class="row">
+<div class="col-md-offset-4 col-md-5">
+<h1>Reset Password</h1>
+
+<?php if ($id=='sent'): ?>
+<p>
+    As instruções de redefinição de senha foram enviadas para o seu endereço de e-mail.
+</p>
+<?php elseif ($id=='invalid-email'): ?>
+<p>
+    Não há nenhum usuário com esse e-mail ou o usuário está inativo.
+</p>
+<?php elseif ($id=='set'): ?>
+<p>
+    Sua nova senha foi definida com sucesso.
+</p>
+<p>
+    Voltar para <a href="<?= $this->url('login'); ?>">página de login</a>.
+</p>
+<?php elseif ($id=='failed'): ?>
+
+    Chave de redefinição inválida ou pode ter expirado. Por favor, refaça clicando:
+    <a href="<?= $this->url('reset-password') ?>">aqui</a> e tente redefinir sua senha novamente.
+</p>
+<?php endif; ?>
+</div>
+</div>    
