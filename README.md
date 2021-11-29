@@ -8,7 +8,7 @@ Aplicação Challenges-app
 * Implementado UI de gerenciamento de usuário
 * Itens do menu principal de inicialização de maneira diferente com base no fato de o usuário atual estar conectado ou não
 
-## Installation
+## Instalação
 
 Você precisa ter o servidor Apache 2.4 HTTP, PHP v.5.6 ou posterior com extensões `gd` e` intl`, e MySQL 5.6 ou posterior.
 
