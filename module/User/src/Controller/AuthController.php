@@ -2,12 +2,11 @@
 
 namespace User\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\Authentication\Result;
-use Zend\Uri\Uri;
 use User\Form\LoginForm;
-use User\Entity\User;
+use Zend\Authentication\Result;
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Uri\Uri;
+use Zend\View\Model\ViewModel;
 
 /**
  * Este controlador é responsável por permitir que o usuário efetue login e logout.
@@ -50,7 +49,7 @@ class AuthController extends AbstractActionController
         // Recupere o URL de redirecionamento (se aprovado). Vamos redirecionar o usuário para este
         // URL após login bem-sucedido.
         $redirectUrl = (string)$this->params()->fromQuery('redirectUrl', '');
-        if (strlen($redirectUrl)>2048) {
+        if (strlen($redirectUrl) > 2048) {
             throw new \Exception("Too long redirectUrl argument passed");
         }
 
@@ -74,14 +73,14 @@ class AuthController extends AbstractActionController
             $form->setData($data);
 
             // Validar formulário
-            if($form->isValid()) {
+            if ($form->isValid()) {
 
                 // Obtenha dados filtrados e validados
                 $data = $form->getData();
 
                 // Executa uma tentativa de login.
                 $result = $this->authManager->login($data['email'],
-                        $data['password'], $data['remember_me']);
+                    $data['password'], $data['remember_me']);
 
                 // Verifique o resultado.
                 if ($result->getCode() == Result::SUCCESS) {
@@ -93,13 +92,13 @@ class AuthController extends AbstractActionController
                         // A verificação abaixo é para prevenir um possível ataque de redirecionamento
                         // (se alguém tentar redirecionar o usuário para outro domínio).
                         $uri = new Uri($redirectUrl);
-                        if (!$uri->isValid() || $uri->getHost()!=null)
+                        if (!$uri->isValid() || $uri->getHost() != null)
                             throw new \Exception('Incorrect redirect URL: ' . $redirectUrl);
                     }
 
                     // Se o URL de redirecionamento for fornecido, redirecione o usuário para esse URL;
                     // caso contrário, redireciona para a página inicial.
-                    if(empty($redirectUrl)) {
+                    if (empty($redirectUrl)) {
                         return $this->redirect()->toRoute('home');
                     } else {
                         $this->redirect()->toUrl($redirectUrl);

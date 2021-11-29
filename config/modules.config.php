@@ -27,7 +27,7 @@ return [
     'Zend\Mvc\Plugin\FilePrg',
     'Zend\Form',
     'Zend\Router',
-    'Zend\Validator',    
+    'Zend\Validator',
     'Application',
     'User',
     'Rooms'

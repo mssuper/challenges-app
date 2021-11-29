@@ -1,4 +1,5 @@
 <?php
+
 namespace RoomsModule;
 
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -12,13 +13,13 @@ return [
     'router' => [
         'routes' => [
             'module-name-here' => [
-                'type'    => 'Literal',
+                'type' => 'Literal',
                 'options' => [
                     // Change this to something specific to your module
-                    'route'    => '/module-specific-root',
+                    'route' => '/module-specific-root',
                     'defaults' => [
-                        'controller'    => Controller\RoomsController::class,
-                        'action'        => 'index',
+                        'controller' => Controller\RoomsController::class,
+                        'action' => 'index',
                     ],
                 ],
                 'may_terminate' => true,

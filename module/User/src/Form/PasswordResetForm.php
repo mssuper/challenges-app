@@ -1,8 +1,8 @@
 <?php
+
 namespace User\Form;
 
 use Zend\Form\Form;
-use Zend\InputFilter\InputFilter;
 
 /**
  * Este formulário é usado para coletar o endereço de e-mail do usuário (usado para recuperar a senha).
@@ -19,19 +19,19 @@ class PasswordResetForm extends Form
 
         // Defina o método POST para este formulário
         $this->setAttribute('method', 'post');
-                
+
         $this->addElements();
-        $this->addInputFilter();          
+        $this->addInputFilter();
     }
-    
+
     /**
      * Este método adiciona elementos ao formulário (campos de entrada e botão de envio).
      */
-    protected function addElements() 
+    protected function addElements()
     {
         // Adicionar campo "email"
-        $this->add([            
-            'type'  => 'email',
+        $this->add([
+            'type' => 'email',
             'name' => 'email',
             'options' => [
                 'label' => 'Your E-mail',
@@ -67,46 +67,46 @@ class PasswordResetForm extends Form
             'name' => 'csrf',
             'options' => [
                 'csrf_options' => [
-                'timeout' => 600
+                    'timeout' => 600
                 ]
             ],
         ]);
 
         // Adicione o botão Enviar
         $this->add([
-            'type'  => 'submit',
+            'type' => 'submit',
             'name' => 'submit',
-            'attributes' => [                
+            'attributes' => [
                 'value' => 'Reset Password',
                 'id' => 'submit',
             ],
-        ]);       
+        ]);
     }
-    
+
     /**
      * Este método cria um filtro de entrada (usado para filtragem / validação de formulário).
      */
-    private function addInputFilter() 
+    private function addInputFilter()
     {
         // Criar filtro de entrada principal
         $inputFilter = $this->getInputFilter();
 
         // Adicionar entrada para o campo "email"
         $inputFilter->add([
-                'name'     => 'email',
-                'required' => true,
-                'filters'  => [
-                    ['name' => 'StringTrim'],                    
-                ],                
-                'validators' => [
-                    [
-                        'name' => 'EmailAddress',
-                        'options' => [
-                            'allow' => \Zend\Validator\Hostname::ALLOW_DNS,
-                            'useMxCheck'    => false,                            
-                        ],
+            'name' => 'email',
+            'required' => true,
+            'filters' => [
+                ['name' => 'StringTrim'],
+            ],
+            'validators' => [
+                [
+                    'name' => 'EmailAddress',
+                    'options' => [
+                        'allow' => \Zend\Validator\Hostname::ALLOW_DNS,
+                        'useMxCheck' => false,
                     ],
                 ],
-            ]);                     
-    }        
+            ],
+        ]);
+    }
 }

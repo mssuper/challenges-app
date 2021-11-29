@@ -1,4 +1,5 @@
 <?php
+
 namespace Application\Service;
 
 /**
@@ -12,40 +13,40 @@ class NavManager
      * @var Zend\Authentication\Authentication
      */
     private $authService;
-    
+
     /**
      * Assistente de visualização de URL.
      * @var Zend\View\Helper\Url
      */
     private $urlHelper;
-    
+
     /**
      * Constrói o serviço.
      */
-    public function __construct($authService, $urlHelper) 
+    public function __construct($authService, $urlHelper)
     {
         $this->authService = $authService;
         $this->urlHelper = $urlHelper;
     }
-    
+
     /**
      * Este método retorna itens de menu dependendo se o usuário está conectado ou não.
      */
-    public function getMenuItems() 
+    public function getMenuItems()
     {
         $url = $this->urlHelper;
         $items = [];
-        
+
         $items[] = [
             'id' => 'home',
             'label' => 'inicio',
-            'link'  => $url('home')
+            'link' => $url('home')
         ];
-        
+
         $items[] = [
             'id' => 'about',
             'label' => 'Sobre',
-            'link'  => $url('about')
+            'link' => $url('about')
         ];
 
         // Exibe o item de menu "Login" apenas para usuários não autorizados. Por outro lado,
@@ -54,11 +55,11 @@ class NavManager
             $items[] = [
                 'id' => 'login',
                 'label' => 'Registrar-se',
-                'link'  => $url('login'),
+                'link' => $url('login'),
                 'float' => 'right'
             ];
         } else {
-            
+
             $items[] = [
                 'id' => 'admin',
                 'label' => 'Admin',
@@ -70,7 +71,7 @@ class NavManager
                     ]
                 ]
             ];
-            
+
             $items[] = [
                 'id' => 'logout',
                 'label' => $this->authService->getIdentity(),
@@ -79,7 +80,7 @@ class NavManager
                     [
                         'id' => 'settings',
                         'label' => 'Configurações',
-                        'link' => $url('application', ['action'=>'settings'])
+                        'link' => $url('application', ['action' => 'settings'])
                     ],
                     [
                         'id' => 'logout',
@@ -89,7 +90,7 @@ class NavManager
                 ]
             ];
         }
-        
+
         return $items;
     }
 }

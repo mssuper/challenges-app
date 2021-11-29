@@ -1,103 +1,63 @@
-User Demo Sample
+Aplicação Challenges-app 
 ==================================================
 
-This sample is based on *Hello World* sample. It shows how to:
-
- * Create a new module named User
- * Create User entity
- * Implement user authentication (with login and password)
- * Implement access filter to restrict access to certain pages to authenticated users only
- * Implement user management UI
- * Init main menu items differently based on whether the current user is logged in or not
+* Criado um novo módulo chamado Usuário
+* Criada entidade de usuário
+* Implementado autenticação de usuário (com login e senha)
+* Implementado um filtro de acesso para restringir o acesso a certas páginas apenas para usuários autenticados
+* Implementado UI de gerenciamento de usuário
+* Itens do menu principal de inicialização de maneira diferente com base no fato de o usuário atual estar conectado ou não
 
 ## Installation
 
-You need to have Apache 2.4 HTTP server, PHP v.5.6 or later with `gd` and `intl` extensions, and MySQL 5.6 or later.
+Você precisa ter o servidor Apache 2.4 HTTP, PHP v.5.6 ou posterior com extensões `gd` e` intl`, e MySQL 5.6 ou posterior.
 
-Download the sample to some directory (it can be your home dir or `/var/www/html`) and run Composer as follows:
+Download o Challenges-app para alguma pasta  (pode ser seu diretório inicial ou `/var/www/html`) e execute o Composer como segue:
 
 ```
 php composer.phar install
 ```
 
-The command above will install the dependencies (Zend Framework and Doctrine).
+O comando acima irá instalar as dependências (Zend Framework e Doctrine).
 
-Enable development mode:
+Habilite o modo de desenvolvimento:
 
 ```
 php composer.phar development-enable
 ```
 
-Adjust permissions for `data` directory:
-
-```
-sudo chown -R www-data:www-data data
-sudo chmod -R 775 data
-```
-
-Create `public/img/captcha` directory:
-
-```
-mkdir public/img/captcha
-```
-
-Adjust permissions for `public/img/captcha` directory:
-
-```
-sudo chown -R www-data:www-data public/img/captcha
-sudo chmod -R 775 public/img/captcha 
-```
-
-Create `config/autoload/local.php` config file by copying its distrib version:
-
-```
-cp config/autoload/local.php.dist config/autoload/local.php
-```
-
-Edit `config/autoload/local.php` and set database password parameter.
-
-Login to MySQL client:
+Faça Login no MySQL client:
 
 ```
 mysql -u root -p
 ```
 
-Create database:
+Criar o banco de dados:
 
 ```
-CREATE DATABASE userdemo;
-GRANT ALL PRIVILEGES ON userdemo.* TO userdemo@localhost identified by '<your_password>';
+CREATE
+USER 'challenges-app'@'localhost' IDENTIFIED WITH mysql_native_password AS '***';GRANT USAGE ON *.* TO
+'challenges-app'@'localhost' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;CREATE
+DATABASE IF NOT EXISTS `challenges-app`;GRANT ALL PRIVILEGES ON `challenges-app`.* TO
+'challenges-app'@'localhost';GRANT ALL PRIVILEGES ON `challenges-app\_%`.* TO
+'challenges-app'@'localhost';
 quit
 ```
 
 Run database migrations to intialize database schema:
-
 ```
 ./vendor/bin/doctrine-module migrations:migrate
 ```
 
-Then create an Apache virtual host. It should look like below:
+Na Pasta Raiz digite php 0.0.0.0:8080 -t /public 
 
-```
-<VirtualHost *:80>
-    DocumentRoot /path/to/userdemo/public
-    
-	<Directory /path/to/userdemo/public/>
-        DirectoryIndex index.php
-        AllowOverride All
-        Require all granted
-    </Directory>
+Agora você deve conseguir ver o site de Demonstração do Usuário visitando o link "http://localhost:8080".
 
-</VirtualHost>
-```
-
-Now you should be able to see the User Demo website by visiting the link "http://localhost/". 
- 
 ## License
 
-This code is provided under the [BSD-like license](https://en.wikipedia.org/wiki/BSD_licenses). 
+Este código é fornecido sob o [BSD-like license](https://en.wikipedia.org/wiki/BSD_licenses).
 
 ## Contributing
 
-If you found a mistake or a bug, please report it using the [Issues](https://github.com/olegkrivtsov/using-zf3-book-samples/issues) page. 
-Your feedback is highly appreciated.
+Se você encontrou um erro ou bug, relate-o usando
+A Página [Questões](https://github.com/mssuper/challenges-app/issues). Os seus comentários são extremamente apreciados.

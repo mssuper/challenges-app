@@ -12,14 +12,14 @@
  */
 
 use Zend\Session\Storage\SessionArrayStorage;
-use Zend\Session\Validator\RemoteAddr;
 use Zend\Session\Validator\HttpUserAgent;
+use Zend\Session\Validator\RemoteAddr;
 
 return [
     // Configuração da sessão.
     'session_config' => [
-        'cookie_lifetime'     => 60*60*1, // O cookie da sessão irá expirar em 1 hora.
-        'gc_maxlifetime'      => 60*60*24*30, // Por quanto tempo armazenar os dados da sessão no servidor (por 1 mês).
+        'cookie_lifetime' => 60 * 60 * 1, // O cookie da sessão irá expirar em 1 hora.
+        'gc_maxlifetime' => 60 * 60 * 24 * 30, // Por quanto tempo armazenar os dados da sessão no servidor (por 1 mês).
     ],
     // Configuração do gerenciador de sessão.
     'session_manager' => [
@@ -33,14 +33,14 @@ return [
     'session_storage' => [
         'type' => SessionArrayStorage::class
     ],
-    'doctrine' => [        
+    'doctrine' => [
         // configuração de migrações
         'migrations_configuration' => [
             'orm_default' => [
                 'directory' => 'data/Migrations',
-                'name'      => 'Doctrine Database Migrations',
+                'name' => 'Doctrine Database Migrations',
                 'namespace' => 'Migrations',
-                'table'     => 'migrations',
+                'table' => 'migrations',
             ],
         ],
     ],

@@ -1,4 +1,5 @@
 <?php
+
 namespace User\Service;
 
 use Zend\Authentication\Result;
@@ -15,29 +16,29 @@ class AuthManager
      * @var \Zend\Authentication\AuthenticationService
      */
     private $authService;
-    
+
     /**
      * Gerenciador de sessão.
      * @var Zend\Session\SessionManager
      */
     private $sessionManager;
-    
+
     /**
      * Conteúdo da chave de configuração 'access_filter'.
-     * @var array 
+     * @var array
      */
     private $config;
-    
+
     /**
      * Constrói o serviço.
      */
-    public function __construct($authService, $sessionManager, $config) 
+    public function __construct($authService, $sessionManager, $config)
     {
         $this->authService = $authService;
         $this->sessionManager = $sessionManager;
         $this->config = $config;
     }
-    
+
     /**
      * Executa uma tentativa de login. Se o argumento $ rememberMe for verdadeiro, ele força a sessão
      * para durar um mês (caso contrário, a sessão expira em uma hora).
@@ -46,7 +47,7 @@ class AuthManager
     {
         // Verifique se o usuário já está logado. Em caso afirmativo, não permita o login
         // duas vezes.
-        if ($this->authService->getIdentity()!=null) {
+        if ($this->authService->getIdentity() != null) {
             throw new \Exception('Already logged in');
         }
 
@@ -59,28 +60,28 @@ class AuthManager
         // Se o usuário quiser "lembrar-se dele", faremos com que a sessão expire em
         // um mês. Por padrão, a sessão expira em 1 hora (conforme especificado em nosso
         // arquivo config / global.php).
-        if ($result->getCode()==Result::SUCCESS && $rememberMe) {
+        if ($result->getCode() == Result::SUCCESS && $rememberMe) {
             // O cookie da sessão expira em 1 mês (30 dias).
-            $this->sessionManager->rememberMe(60*60*24*30);
+            $this->sessionManager->rememberMe(60 * 60 * 24 * 30);
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Executa o logout do usuário.
      */
     public function logout()
     {
         // Permitir o logout apenas quando o usuário estiver logado.
-        if ($this->authService->getIdentity()==null) {
+        if ($this->authService->getIdentity() == null) {
             throw new \Exception('The user is not logged in');
         }
 
         // Remova a identidade da sessão.
-        $this->authService->clearIdentity();               
+        $this->authService->clearIdentity();
     }
-    
+
     /**
      * Este é um filtro de controle de acesso simples. É capaz de restringir os não autorizados
      * usuários para visitar certas páginas.
@@ -97,31 +98,31 @@ class AuthManager
         // No modo permissivo, se uma ação não estiver listada na chave 'access_filter',
         // o acesso a ele é permitido a qualquer pessoa (mesmo para usuários não logados.
         // O modo restritivo é mais seguro e recomendado para uso.
-        $mode = isset($this->config['options']['mode'])?$this->config['options']['mode']:'restrictive';
-        if ($mode!='restrictive' && $mode!='permissive')
+        $mode = isset($this->config['options']['mode']) ? $this->config['options']['mode'] : 'restrictive';
+        if ($mode != 'restrictive' && $mode != 'permissive')
             throw new \Exception('Invalid access filter mode (expected either restrictive or permissive mode');
-        
+
         if (isset($this->config['controllers'][$controllerName])) {
             $items = $this->config['controllers'][$controllerName];
             foreach ($items as $item) {
                 $actionList = $item['actions'];
                 $allow = $item['allow'];
                 if (is_array($actionList) && in_array($actionName, $actionList) ||
-                    $actionList=='*') {
-                    if ($allow=='*')
+                    $actionList == '*') {
+                    if ($allow == '*')
                         return true; // Anyone is allowed to see the page.
-                    else if ($allow=='@' && $this->authService->hasIdentity()) {
+                    else if ($allow == '@' && $this->authService->hasIdentity()) {
                         return true; // Only authenticated user is allowed to see the page.
-                    } else {                    
+                    } else {
                         return false; // Access denied.
                     }
                 }
-            }            
+            }
         }
 
         // No modo restritivo, proibimos o acesso de usuários não autorizados a qualquer
         // ação não listada na chave 'access_filter' (por razões de segurança).
-        if ($mode=='restrictive' && !$this->authService->hasIdentity())
+        if ($mode == 'restrictive' && !$this->authService->hasIdentity())
             return false;
 
         // Permitir acesso a esta página.

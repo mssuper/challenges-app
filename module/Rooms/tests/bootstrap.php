@@ -24,8 +24,8 @@ $path = array(
 );
 set_include_path(implode(PATH_SEPARATOR, $path));
 
-require_once  'Zend/Loader/AutoloaderFactory.php';
-require_once  'Zend/Loader/StandardAutoloader.php';
+require_once 'Zend/Loader/AutoloaderFactory.php';
+require_once 'Zend/Loader/StandardAutoloader.php';
 
 use Zend\Loader\AutoloaderFactory;
 use Zend\Loader\StandardAutoloader;
@@ -33,7 +33,7 @@ use Zend\Loader\StandardAutoloader;
 // setup autoloader
 AutoloaderFactory::factory(
     array(
-    	'Zend\Loader\StandardAutoloader' => array(
+        'Zend\Loader\StandardAutoloader' => array(
             StandardAutoloader::AUTOREGISTER_ZF => true,
             StandardAutoloader::ACT_AS_FALLBACK => false,
             StandardAutoloader::LOAD_NS => $additionalNamespaces,
@@ -48,7 +48,7 @@ if (defined('MODULE_NAME')) {
 }
 
 // A locator will be set to this class if available
-$moduleTestCaseClassname = '\\'.$moduleName.'Test\\Framework\\TestCase';
+$moduleTestCaseClassname = '\\' . $moduleName . 'Test\\Framework\\TestCase';
 
 // This module's path plus additionally defined paths are used $modulePaths
 $modulePaths = array(dirname($rootPath));
@@ -98,7 +98,7 @@ if (method_exists($moduleTestCaseClassname, 'setLocator')) {
     );
     $routerDiConfig->configure($di);
 
-    call_user_func_array($moduleTestCaseClassname.'::setLocator', array($di));
+    call_user_func_array($moduleTestCaseClassname . '::setLocator', array($di));
 }
 
 // When this is in global scope, PHPUnit catches exception:

@@ -1,10 +1,11 @@
 <?php
+
 namespace User\Controller\Factory;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
 use User\Controller\UserController;
 use User\Service\UserManager;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Esta é a fábrica do UserController. Seu objetivo é instanciar o

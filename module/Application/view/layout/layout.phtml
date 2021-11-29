@@ -1,68 +1,68 @@
 <?= $this->doctype() ?>
 
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <?= $this->headTitle('User Demo')->setSeparator(' - ')->setAutoEscape(false) ?>
+<head>
+    <meta charset="utf-8">
+    <?= $this->headTitle('User Demo')->setSeparator(' - ')->setAutoEscape(false) ?>
 
-        <?= $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
-        ?>
+    <?= $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
 
-        <!-- Estilos -->
-        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
-                        ->prependStylesheet($this->basePath('css/style.css'))
-                        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
-                        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
-        ?>
+    <!-- Estilos -->
+    <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+        ->prependStylesheet($this->basePath('css/style.css'))
+        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+    ?>
 
-        <!-- Scripts -->
-        <?= $this->headScript()
-            ->prependFile($this->basePath('js/bootstrap.min.js'))
-            ->prependFile($this->basePath('js/jquery-2.2.4.min.js'))
-        ?>
-    </head>
-    <body>
-        <div class="container">
-            <div class="row">
-                <!-- Cabeçalho da página -->
-                <div class="col-md-4">
-                    <div class="app-caption">User Demo</div>
-                </div>                
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Barra de navegação -->
-                    <?php
-                    // Verifique se o activeMenuItemId passou para o modelo de visualização de layout
-                    // e em caso afirmativo, use-o para definir o item ativo da barra de navegação.
-                    if (isset($activeMenuItemId)) {
-                        $this->mainMenu()->setActiveItemId($activeMenuItemId);
-                    }
-
-                    // Renderizar a barra de navegação
-                    echo $this->mainMenu()->render();
-                    ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Breadcrumbs -->
-                    <?= $this->pageBreadcrumbs()->render(); ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Espaço reservado para conteúdo da página -->
-                    <?= $this->content; ?>
-                </div>
-            </div>
-            <hr>
-            <footer>
-                <p>&copy; 2021 - <?= date('Y') ?> by Marcelo Silveira. Todos os direitos Reservados.</p>
-            </footer>
+    <!-- Scripts -->
+    <?= $this->headScript()
+        ->prependFile($this->basePath('js/bootstrap.min.js'))
+        ->prependFile($this->basePath('js/jquery-2.2.4.min.js'))
+    ?>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <!-- Cabeçalho da página -->
+        <div class="col-md-4">
+            <div class="app-caption">User Demo</div>
         </div>
-        <?= $this->inlineScript() ?>
-    </body>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Barra de navegação -->
+            <?php
+            // Verifique se o activeMenuItemId passou para o modelo de visualização de layout
+            // e em caso afirmativo, use-o para definir o item ativo da barra de navegação.
+            if (isset($activeMenuItemId)) {
+                $this->mainMenu()->setActiveItemId($activeMenuItemId);
+            }
+
+            // Renderizar a barra de navegação
+            echo $this->mainMenu()->render();
+            ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Breadcrumbs -->
+            <?= $this->pageBreadcrumbs()->render(); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Espaço reservado para conteúdo da página -->
+            <?= $this->content; ?>
+        </div>
+    </div>
+    <hr>
+    <footer>
+        <p>&copy; 2021 - <?= date('Y') ?> by Marcelo Silveira. Todos os direitos Reservados.</p>
+    </footer>
+</div>
+<?= $this->inlineScript() ?>
+</body>
 </html>

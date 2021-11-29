@@ -46,10 +46,10 @@ return [
         // O caminho no qual armazenar em cache a configuração mesclada.
         'cache_dir' => 'data/cache/',
 
-         // Se deve ou não habilitar a verificação de dependência de módulos.
-         // Habilitado por padrão, evita o uso de módulos que dependem de outros módulos
-         // que não foram carregados.
-         // 'check_dependencies' => true,
+        // Se deve ou não habilitar a verificação de dependência de módulos.
+        // Habilitado por padrão, evita o uso de módulos que dependem de outros módulos
+        // que não foram carregados.
+        // 'check_dependencies' => true,
     ],
 
     // Usado para criar um gerenciador de serviço próprio. Pode conter uma ou mais matrizes filho.

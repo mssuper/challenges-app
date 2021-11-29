@@ -1,9 +1,10 @@
 <?php
+
 namespace User;
 
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 return [
     'router' => [
@@ -11,54 +12,54 @@ return [
             'login' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/login',
+                    'route' => '/login',
                     'defaults' => [
                         'controller' => Controller\AuthController::class,
-                        'action'     => 'login',
+                        'action' => 'login',
                     ],
                 ],
             ],
             'logout' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/logout',
+                    'route' => '/logout',
                     'defaults' => [
                         'controller' => Controller\AuthController::class,
-                        'action'     => 'logout',
+                        'action' => 'logout',
                     ],
                 ],
             ],
             'reset-password' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/reset-password',
+                    'route' => '/reset-password',
                     'defaults' => [
                         'controller' => Controller\UserController::class,
-                        'action'     => 'resetPassword',
+                        'action' => 'resetPassword',
                     ],
                 ],
             ],
             'set-password' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/set-password',
+                    'route' => '/set-password',
                     'defaults' => [
                         'controller' => Controller\UserController::class,
-                        'action'     => 'setPassword',
+                        'action' => 'setPassword',
                     ],
                 ],
             ],
             'users' => [
-                'type'    => Segment::class,
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '/users[/:action[/:id]]',
+                    'route' => '/users[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[a-zA-Z0-9_-]*',
                     ],
                     'defaults' => [
-                        'controller'    => Controller\UserController::class,
-                        'action'        => 'index',
+                        'controller' => Controller\UserController::class,
+                        'action' => 'index',
                     ],
                 ],
             ],
@@ -67,7 +68,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\AuthController::class => Controller\Factory\AuthControllerFactory::class,
-            Controller\UserController::class => Controller\Factory\UserControllerFactory::class,            
+            Controller\UserController::class => Controller\Factory\UserControllerFactory::class,
         ],
     ],
     // Registramos plug-ins de controlador fornecidos por módulo nesta chave.

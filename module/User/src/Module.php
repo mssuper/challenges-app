@@ -7,10 +7,10 @@
 
 namespace User;
 
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Controller\AbstractActionController;
 use User\Controller\AuthController;
 use User\Service\AuthManager;
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Mvc\MvcEvent;
 
 class Module
 {
@@ -21,7 +21,7 @@ class Module
     {
         return include __DIR__ . '/../config/module.config.php';
     }
-    
+
     /**
      * Este método é chamado quando o bootstrap do MVC é concluído e permite
      * para registrar ouvintes de eventos.
@@ -32,29 +32,29 @@ class Module
         $eventManager = $event->getApplication()->getEventManager();
         $sharedEventManager = $eventManager->getSharedManager();
         // Registre o método de ouvinte de evento.
-        $sharedEventManager->attach(AbstractActionController::class, 
-                MvcEvent::EVENT_DISPATCH, [$this, 'onDispatch'], 100);
-        
+        $sharedEventManager->attach(AbstractActionController::class,
+            MvcEvent::EVENT_DISPATCH, [$this, 'onDispatch'], 100);
+
         $sessionManager = $event->getApplication()->getServiceManager()->get('Zend\Session\SessionManager');
-        
+
         $this->forgetInvalidSession($sessionManager);
     }
-    
-    protected function forgetInvalidSession($sessionManager) 
+
+    protected function forgetInvalidSession($sessionManager)
     {
-    	try {
-    		$sessionManager->start();
-    		return;
-    	} catch (\Exception $e) {
-    	}
-    	/**
+        try {
+            $sessionManager->start();
+            return;
+        } catch (\Exception $e) {
+        }
+        /**
          * A validação da sessão falhou: brinde e continue.
-    	 */
-    	// @codeCoverageIgnoreStart
-    	session_unset();
-    	// @codeCoverageIgnoreEnd
+         */
+        // @codeCoverageIgnoreStart
+        session_unset();
+        // @codeCoverageIgnoreEnd
     }
-    
+
     /**
      * Método de listener de eventos para o evento 'Dispatch'. Nós ouvimos o despacho
      * evento para chamar o filtro de acesso. O filtro de acesso permite determinar se
@@ -77,7 +77,7 @@ class Module
 
         // Execute o filtro de acesso em cada controlador, exceto AuthController
         // (para evitar redirecionamento infinito).
-        if ($controllerName!=AuthController::class && 
+        if ($controllerName != AuthController::class &&
             !$authManager->filterAccess($controllerName, $actionName)) {
 
             // Lembre-se do URL da página que o usuário tentou acessar. Nós vamos
@@ -92,8 +92,8 @@ class Module
             $redirectUrl = $uri->toString();
 
             // Redirecione o usuário para a página "Login".
-            return $controller->redirect()->toRoute('login', [], 
-                    ['query'=>['redirectUrl'=>$redirectUrl]]);
+            return $controller->redirect()->toRoute('login', [],
+                ['query' => ['redirectUrl' => $redirectUrl]]);
         }
     }
 }

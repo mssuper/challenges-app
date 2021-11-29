@@ -18,7 +18,7 @@ class Module
     {
         return include __DIR__ . '/../config/module.config.php';
     }
-    
+
     /**
      * Este método é chamado assim que o bootstrap do MVC for concluído.
      */

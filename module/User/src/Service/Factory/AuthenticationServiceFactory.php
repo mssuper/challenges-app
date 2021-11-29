@@ -1,12 +1,13 @@
 <?php
+
 namespace User\Service\Factory;
 
 use Interop\Container\ContainerInterface;
+use User\Service\AuthAdapter;
 use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Storage\Session as SessionStorage;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\Session\SessionManager;
-use Zend\Authentication\Storage\Session as SessionStorage;
-use User\Service\AuthAdapter;
 
 /**
  * Fábrica responsável pela criação do serviço de autenticação.

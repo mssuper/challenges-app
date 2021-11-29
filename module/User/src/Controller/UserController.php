@@ -1,35 +1,36 @@
 <?php
+
 namespace User\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
 use Application\Entity\Post;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use User\Entity\User;
-use User\Form\UserForm;
 use User\Form\PasswordChangeForm;
 use User\Form\PasswordResetForm;
+use User\Form\UserForm;
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Paginator\Paginator;
+use Zend\View\Model\ViewModel;
 
 /**
  * Este controlador é responsável pelo gerenciamento de usuários (adição, edição,
  * visualização de usuários e alteração de senha de usuário).
  */
-class UserController extends AbstractActionController 
+class UserController extends AbstractActionController
 {
     /**
      * Gerente de entidade.
      * @var Doctrine\ORM\EntityManager
      */
     private $entityManager;
-    
+
     /**
      * Gerenciador de usuário.
-     * @var User\Service\UserManager 
+     * @var User\Service\UserManager
      */
     private $userManager;
-    
+
     /**
      * Construtor.
      */
@@ -38,28 +39,28 @@ class UserController extends AbstractActionController
         $this->entityManager = $entityManager;
         $this->userManager = $userManager;
     }
-    
+
     /**
      * Esta é a ação "índice" padrão do controlador. Ele exibe o
      * lista de usuários.
      */
-    public function indexAction() 
+    public function indexAction()
     {
         $page = $this->params()->fromQuery('page', 1);
-        
+
         $query = $this->entityManager->getRepository(User::class)
-                ->findAllUsers();
-        
+            ->findAllUsers();
+
         $adapter = new DoctrineAdapter(new ORMPaginator($query, false));
         $paginator = new Paginator($adapter);
-        $paginator->setDefaultItemCountPerPage(10);        
+        $paginator->setDefaultItemCountPerPage(10);
         $paginator->setCurrentPageNumber($page);
-        
+
         return new ViewModel([
             'users' => $paginator
         ]);
-    } 
-    
+    }
+
     /**
      * Esta ação exibe uma página que permite adicionar um novo usuário.
      */
@@ -72,74 +73,74 @@ class UserController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
 
             // Preencher o formulário com dados POST
-            $data = $this->params()->fromPost();            
-            
+            $data = $this->params()->fromPost();
+
             $form->setData($data);
 
             // Validar formulário
-            if($form->isValid()) {
+            if ($form->isValid()) {
 
                 // Obtenha dados filtrados e validados
                 $data = $form->getData();
-                
+
                 // Adicionar usuário.
                 $user = $this->userManager->addUser($data);
-                
+
                 // Redirecionar para a página "visualizar"
-                return $this->redirect()->toRoute('users', 
-                        ['action'=>'view', 'id'=>$user->getId()]);                
-            }               
-        } 
-        
+                return $this->redirect()->toRoute('users',
+                    ['action' => 'view', 'id' => $user->getId()]);
+            }
+        }
+
         return new ViewModel([
-                'form' => $form
-            ]);
+            'form' => $form
+        ]);
     }
-    
+
     /**
      * A ação "visualizar" exibe uma página que permite visualizar os detalhes do usuário.
      */
-    public function viewAction() 
+    public function viewAction()
     {
         $id = (int)$this->params()->fromRoute('id', -1);
-        if ($id<1) {
+        if ($id < 1) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
-        
+
         // Encontre um usuário com tal ID.
         $user = $this->entityManager->getRepository(User::class)
-                ->find($id);
-        
+            ->find($id);
+
         if ($user == null) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
-                
+
         return new ViewModel([
             'user' => $user
         ]);
     }
-    
+
     /**
      * A ação "editar" exibe uma página que permite editar o usuário.
      */
-    public function editAction() 
+    public function editAction()
     {
         $id = (int)$this->params()->fromRoute('id', -1);
-        if ($id<1) {
+        if ($id < 1) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
-        
+
         $user = $this->entityManager->getRepository(User::class)
-                ->find($id);
-        
+            ->find($id);
+
         if ($user == null) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
-        
+
         // Criar formulário de usuário
         $form = new UserForm('update', $this->entityManager, $user);
 
@@ -148,12 +149,12 @@ class UserController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
 
             // Preencher o formulário com dados POST
-            $data = $this->params()->fromPost();            
-            
+            $data = $this->params()->fromPost();
+
             $form->setData($data);
 
             // Validar formulário
-            if($form->isValid()) {
+            if ($form->isValid()) {
 
                 // Obter dados filtrados e validados
                 $data = $form->getData();
@@ -162,37 +163,37 @@ class UserController extends AbstractActionController
                 $this->userManager->updateUser($user, $data);
 
                 // Redirecionar para a página "visualizar"
-                return $this->redirect()->toRoute('users', 
-                        ['action'=>'view', 'id'=>$user->getId()]);                
-            }               
+                return $this->redirect()->toRoute('users',
+                    ['action' => 'view', 'id' => $user->getId()]);
+            }
         } else {
             $form->setData(array(
-                    'full_name'=>$user->getFullName(),
-                    'email'=>$user->getEmail(),
-                    'status'=>$user->getStatus(),                    
-                ));
+                'full_name' => $user->getFullName(),
+                'email' => $user->getEmail(),
+                'status' => $user->getStatus(),
+            ));
         }
-        
+
         return new ViewModel(array(
             'user' => $user,
             'form' => $form
         ));
     }
-    
+
     /**
      * Esta ação exibe uma página que permite alterar a senha do usuário.
      */
-    public function changePasswordAction() 
+    public function changePasswordAction()
     {
         $id = (int)$this->params()->fromRoute('id', -1);
-        if ($id<1) {
+        if ($id < 1) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
-        
+
         $user = $this->entityManager->getRepository(User::class)
-                ->find($id);
-        
+            ->find($id);
+
         if ($user == null) {
             $this->getResponse()->setStatusCode(404);
             return;
@@ -205,12 +206,12 @@ class UserController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
 
             // Preencher o formulário com dados POST
-            $data = $this->params()->fromPost();            
-            
+            $data = $this->params()->fromPost();
+
             $form->setData($data);
 
             // Validar formulário
-            if($form->isValid()) {
+            if ($form->isValid()) {
 
                 // Obter dados filtrados e validados
                 $data = $form->getData();
@@ -218,24 +219,24 @@ class UserController extends AbstractActionController
                 // Tente alterar a senha.
                 if (!$this->userManager->changePassword($user, $data)) {
                     $this->flashMessenger()->addErrorMessage(
-                            'Sorry, the old password is incorrect. Could not set the new password.');
+                        'Sorry, the old password is incorrect. Could not set the new password.');
                 } else {
                     $this->flashMessenger()->addSuccessMessage(
-                            'Changed the password successfully.');
+                        'Changed the password successfully.');
                 }
 
                 // Redirecionar para a página "visualizar"
-                return $this->redirect()->toRoute('users', 
-                        ['action'=>'view', 'id'=>$user->getId()]);                
-            }               
-        } 
-        
+                return $this->redirect()->toRoute('users',
+                    ['action' => 'view', 'id' => $user->getId()]);
+            }
+        }
+
         return new ViewModel([
             'user' => $user,
             'form' => $form
         ]);
     }
-    
+
     /**
      * Esta ação exibe a página "Redefinir senha".
      */
@@ -243,61 +244,61 @@ class UserController extends AbstractActionController
     {
         // Criar formulário
         $form = new PasswordResetForm();
-        
+
         // Verifique se o usuário enviou o formulário
         if ($this->getRequest()->isPost()) {
 
             // Preencher o formulário com dados POST
-            $data = $this->params()->fromPost();            
-            
+            $data = $this->params()->fromPost();
+
             $form->setData($data);
 
             // Validar formulário
-            if($form->isValid()) {
+            if ($form->isValid()) {
 
                 // Procure o usuário com esse e-mail.
                 $user = $this->entityManager->getRepository(User::class)
-                        ->findOneByEmail($data['email']);
-                
-                if ($user!=null && $user->getStatus() == User::STATUS_ACTIVE) {
+                    ->findOneByEmail($data['email']);
+
+                if ($user != null && $user->getStatus() == User::STATUS_ACTIVE) {
                     // Gere uma nova senha para o usuário e envia um e-mail
                     // notificação sobre isso.
                     $this->userManager->generatePasswordResetToken($user);
 
                     // Redirecionar para a página de "mensagem"
-                    return $this->redirect()->toRoute('users', 
-                            ['action'=>'message', 'id'=>'sent']);                 
+                    return $this->redirect()->toRoute('users',
+                        ['action' => 'message', 'id' => 'sent']);
                 } else {
-                    return $this->redirect()->toRoute('users', 
-                            ['action'=>'message', 'id'=>'invalid-email']);                 
+                    return $this->redirect()->toRoute('users',
+                        ['action' => 'message', 'id' => 'invalid-email']);
                 }
-            }               
-        } 
-        
-        return new ViewModel([                    
+            }
+        }
+
+        return new ViewModel([
             'form' => $form
         ]);
     }
-    
+
     /**
      * Esta ação exibe uma página de mensagem informativa.
      * Por exemplo, "Sua senha foi redefinida" e assim por diante.
      */
-    public function messageAction() 
+    public function messageAction()
     {
         // Pega o ID da mensagem da rota.
         $id = (string)$this->params()->fromRoute('id');
 
         // Valide o argumento de entrada.
-        if($id!='invalid-email' && $id!='sent' && $id!='set' && $id!='failed') {
+        if ($id != 'invalid-email' && $id != 'sent' && $id != 'set' && $id != 'failed') {
             throw new \Exception('Invalid message ID specified');
         }
-        
+
         return new ViewModel([
             'id' => $id
         ]);
     }
-    
+
     /**
      * Esta ação exibe a página "Redefinir senha".
      */
@@ -307,14 +308,14 @@ class UserController extends AbstractActionController
         $token = $this->params()->fromQuery('token', null);
 
         // Validar o comprimento do token
-        if ($token!=null && (!is_string($token) || strlen($token)!=32)) {
+        if ($token != null && (!is_string($token) || strlen($token) != 32)) {
             throw new \Exception('Invalid token type or length');
         }
-        
-        if($token===null || 
-           !$this->userManager->validatePasswordResetToken($email, $token)) {
-            return $this->redirect()->toRoute('users', 
-                    ['action'=>'message', 'id'=>'failed']);
+
+        if ($token === null ||
+            !$this->userManager->validatePasswordResetToken($email, $token)) {
+            return $this->redirect()->toRoute('users',
+                ['action' => 'message', 'id' => 'failed']);
         }
 
         // Criar formulário
@@ -324,30 +325,30 @@ class UserController extends AbstractActionController
         if ($this->getRequest()->isPost()) {
 
             // Preencher o formulário com dados POST
-            $data = $this->params()->fromPost();            
-            
+            $data = $this->params()->fromPost();
+
             $form->setData($data);
 
             // Validar formulário
-            if($form->isValid()) {
-                
+            if ($form->isValid()) {
+
                 $data = $form->getData();
 
                 // Defina uma nova senha para o usuário.
                 if ($this->userManager->setNewPasswordByToken($email, $token, $data['new_password'])) {
 
                     // Redirecionar para a página de "mensagem"
-                    return $this->redirect()->toRoute('users', 
-                            ['action'=>'message', 'id'=>'set']);                 
+                    return $this->redirect()->toRoute('users',
+                        ['action' => 'message', 'id' => 'set']);
                 } else {
                     // Redirecionar para a página de "mensagem"
-                    return $this->redirect()->toRoute('users', 
-                            ['action'=>'message', 'id'=>'failed']);                 
+                    return $this->redirect()->toRoute('users',
+                        ['action' => 'message', 'id' => 'failed']);
                 }
-            }               
-        } 
-        
-        return new ViewModel([                    
+            }
+        }
+
+        return new ViewModel([
             'form' => $form
         ]);
     }
