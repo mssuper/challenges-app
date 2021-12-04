@@ -53,16 +53,13 @@ Run database migrations to intialize database schema:
 ```
 ./vendor/bin/doctrine-module migrations:migrate
 ```
-
-Na Pasta Raiz digite php 0.0.0.0:8080 -t /public 
-
 Agora você deve conseguir ver o site de Demonstração do Usuário visitando o link "http://localhost:8080".
 
-## License
+## Licença
 
 Este código é fornecido sob o [BSD-like license](https://en.wikipedia.org/wiki/BSD_licenses).
 
-## Contributing
+## Contribuição
 
 Se você encontrou um erro ou bug, relate-o usando
 A Página [Questões](https://github.com/mssuper/challenges-app/issues). Os seus comentários são extremamente apreciados.
