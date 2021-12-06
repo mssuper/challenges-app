@@ -42,6 +42,7 @@ return [
                 'namespace' => 'Migrations',
                 'table' => 'migrations',
             ],
+
         ],
     ],
 ];

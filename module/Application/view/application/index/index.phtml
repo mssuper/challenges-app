@@ -1,5 +1,5 @@
 <?php
-$this->headTitle('Welcome');
+$this->headTitle('Bem Vindo');
 
 $this->mainMenu()->setActiveItemId('home');
 
@@ -8,12 +8,12 @@ $this->pageBreadcrumbs()->setItems([
 ]);
 ?>
 
-<h1>Welcome</h1>
+<h1>Bem vindo</h1>
 
 <p>
-    Este é o aplicativo Challenges-appo desenvolvido por Marcelo Silveira. Ele demonstra
+    Este é o aplicativo Challenges-app foi desenvolvido por Marcelo Silveira. Ele demonstra
     como implementar a autenticação do usuário e como restringir certas páginas a serem
-    acessado por usuários não autorizados.
+    acessado por usuários não autorizados, incluindo uma sessão de reserva de salas.
 </p>
 
 <p>
@@ -22,6 +22,8 @@ $this->pageBreadcrumbs()->setItems([
 <ul>
     <li>Usuário: <em>admin@example.com</em></li>
     <li>Senha: <em>Secur1ty</em></li>
+    <li>Conforme descrito na criação do banco de dados</li>
+    <li>O Usuário <em>admin@example.com</em> será criado automáticamente após a execução</br>de <em>php ./vendor/bin/doctrine-module migrations:migrate</em></li>
 </ul>
 </p>
 

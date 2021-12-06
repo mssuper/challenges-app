@@ -49,10 +49,16 @@ DATABASE IF NOT EXISTS `challenges-app`;GRANT ALL PRIVILEGES ON `challenges-app`
 quit
 ```
 
-Run database migrations to intialize database schema:
+Rodar a migração de Banco de Dados migrations para inicializar o schema  :
 ```
+No linux
 ./vendor/bin/doctrine-module migrations:migrate
 ```
+```
+No Windows
+vendor\bin\doctrine-module.bat migrations:migrate
+```
+
 Agora você deve conseguir ver o site de Demonstração do Usuário visitando o link "http://localhost:8080".
 
 ## Licença

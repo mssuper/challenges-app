@@ -1,0 +1,1 @@
+vendor\bin\doctrine-module.bat migrations:migrate --configuration="./config.xml"

@@ -30,5 +30,4 @@ return [
     'Zend\Validator',
     'Application',
     'User',
-    'Rooms'
 ];

@@ -6,27 +6,27 @@ use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
 /**
- * A migration class. It either upgrades the databases schema (moves it to new state)
- * or downgrades it to the previous state.
+ * Uma Classeaula de migração. Ele atualiza o esquema do banco de dados (o move para um novo estado)
+ * ou faz o downgrade para o estado anterior.
  */
 class Version20160924162137 extends AbstractMigration
 {
     /**
-     * Returns the description of this migration.
+     * Retorna a descrição desta migração.
      */
     public function getDescription()
     {
-        $description = 'This is the initial migration which creates the user table.';
+        $description = 'Esta é a migração inicial que cria a tabela do usuário.';
         return $description;
     }
 
     /**
-     * Upgrades the schema to its newer state.
+     * Atualiza o esquema para seu estado mais recente.
      * @param Schema $schema
      */
     public function up(Schema $schema)
     {
-        // Create 'user' table
+        // Criar tabela de 'usuário'
         $table = $schema->createTable('user');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
         $table->addColumn('email', 'string', ['notnull' => true, 'length' => 128]);
@@ -42,7 +42,7 @@ class Version20160924162137 extends AbstractMigration
     }
 
     /**
-     * Reverts the schema changes.
+     * Reverte as alterações do esquema.
      * @param Schema $schema
      */
     public function down(Schema $schema)

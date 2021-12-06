@@ -102,6 +102,7 @@ class UserController extends AbstractActionController
      */
     public function viewAction()
     {
+        // verifica se o parametro id foi associado
         $id = (int)$this->params()->fromRoute('id', -1);
         if ($id < 1) {
             $this->getResponse()->setStatusCode(404);
@@ -112,6 +113,7 @@ class UserController extends AbstractActionController
         $user = $this->entityManager->getRepository(User::class)
             ->find($id);
 
+        //Se o usuário for null significa que ele não está logado
         if ($user == null) {
             $this->getResponse()->setStatusCode(404);
             return;
