@@ -370,6 +370,43 @@ class UserController extends AbstractActionController
             'rooms' => $paginator
         ]);
     }
+    /**
+     * Esta ação exibe uma página que permite adicionar uma nova sala.
+     */
+    public function addroomAction()
+    {
+        // Criar formulário de usuário
+        $form = new UserForm('create', $this->entityManager);
+
+        // Verifique se o usuário enviou o formulário
+        if ($this->getRequest()->isPost()) {
+
+            // Preencher o formulário com dados POST
+            $data = $this->params()->fromPost();
+
+            $form->setData($data);
+
+            // Validar formulário
+            if ($form->isValid()) {
+
+                // Obtenha dados filtrados e validados
+                $data = $form->getData();
+
+                // Adicionar usuário.
+                $user = $this->userManager->addUser($data);
+
+                // Redirecionar para a página "visualizar"
+                return $this->redirect()->toRoute('users',
+                    ['action' => 'view', 'id' => $user->getId()]);
+            }
+        }
+
+        return new ViewModel([
+            'form' => $form
+        ]);
+    }
+
+
 }
 
 
