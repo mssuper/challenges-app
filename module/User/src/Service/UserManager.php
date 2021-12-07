@@ -109,7 +109,7 @@ class UserManager
         $user->setFullName($data['full_name']);
         $user->setStatus($data['status']);
 
-        // Apply changes to database.
+        // Aplica Mudanças no Banco de Dados.
         $this->entityManager->flush();
 
         return true;

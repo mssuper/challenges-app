@@ -61,11 +61,11 @@ class NavManager
         } else {
             $items[] = [
                 'id' => 'rooms',
-                'label' => 'Rooms',
+                'label' => 'Salas',
                 'dropdown' => [
                     [
                         'id' => 'Rooms',
-                        'label' => 'Gerenciar Rooms',
+                        'label' => 'Gerenciar Salas',
                         'link' => $url('rooms')
                     ]
                 ]

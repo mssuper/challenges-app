@@ -99,11 +99,11 @@ return [
     'access_filter' => [
         'controllers' => [
             Controller\UserController::class => [
-                // Dar acesso às ações "resetPassword", "message" e "setPassword"
+                // Dar acesso às ações "resetPassword", "message", "setPassword" 'rooms','deleteroom','editroom', 'viewroom','addroom','rooms
                 // para ninguém.
                 ['actions' => ['resetPassword', 'message', 'setPassword'], 'allow' => '*'],
                 // Dê acesso às ações "index", "add", "edit", "view", "changePassword" apenas para usuários autorizados.
-                ['actions' => ['index', 'add', 'edit', 'view', 'changePassword','rooms'], 'allow' => '@']
+                ['actions' => ['index', 'add', 'edit', 'view', 'changePassword','rooms','deleteroom','editroom', 'viewroom','addroom','rooms','schroom'], 'allow' => '@']
             ],
         ]
     ],
@@ -113,6 +113,8 @@ return [
             Service\AuthAdapter::class => Service\Factory\AuthAdapterFactory::class,
             Service\AuthManager::class => Service\Factory\AuthManagerFactory::class,
             Service\UserManager::class => Service\Factory\UserManagerFactory::class,
+            Service\RoomsManager::class => Service\Factory\RoomsManagerFactory::class,
+
         ],
     ],
     'view_manager' => [

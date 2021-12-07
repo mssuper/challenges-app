@@ -5,14 +5,14 @@ $this->mainMenu()->setActiveItemId('users');
 
 $this->pageBreadcrumbs()->setItems([
     'Início' => $this->url('home'),
-    'Rooms' => $this->url('rooms'),]);
+    'Salas' => $this->url('rooms'),]);
 ?>
 
 <h1>Gerenciar Salas</h1>
 
 <p>
     <a class="btn btn-default" href="
-    <?= $this->url('rooms', ['action' => 'add']); ?>">
+    <?= $this->url('rooms', ['action' => 'addroom']); ?>">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nova Sala
     </a>
 </p>
@@ -21,8 +21,8 @@ $this->pageBreadcrumbs()->setItems([
 
     <tr>
         <th>IDSala</th>
-        <th>Area</th>
         <th>Nome da Sala</th>
+        <th>Area</th>
         <th>Data de Criação</th>
         <th>Status</th>
         <th>Ações</th>
@@ -33,18 +33,28 @@ $this->pageBreadcrumbs()->setItems([
         <tr>
             <td><?= $this->escapeHtml($room->getId()); ?></td>
             <td>
-                <a href="<?= $this->url('users', ['action' => 'view', 'id' => $room->getId()]); ?>">
-                    <?= $this->escapeHtml($room->getArea()); ?>
+                <a href="<?= $this->url('rooms', ['action' => 'viewroom', 'id' => $room->getId()]); ?>">
+                     <?= $this->escapeHtml($room->getRoomName()); ?>
                 </a>
+            <td>
+                <?= $this->escapeHtml($room->getArea()); ?>
+
             </td>
-            <td><?= $this->escapeHtml($room->getName()); ?></a>
             </td>
             <td><?= $this->escapeHtml($room->getDateCreated()); ?></td>
             <td><?= $this->escapeHtml($room->getStatusAsString()); ?></td>
             <td>
                 <a class="btn btn-info" href="<?= $this->url('rooms',
-                    ['action' => 'edit', 'id' => $room->getId()]); ?>">
+                    ['action' => 'editroom', 'id' => $room->getId()]); ?>">
                     <span class="glyphicon glyphicon-pencil"></span> Editar
+                </a>
+                <a class="btn btn-info" href="<?= $this->url('rooms',
+                    ['action' => 'deleteroom', 'id' => $room->getId()]); ?>">
+                    <span class="glyphicon glyphicon-erase"></span> Excluir
+                </a>
+                <a class="btn btn-info" href="<?= $this->url('rooms',
+                    ['action' => 'scheduleroom', 'id' => $room->getId()]); ?>">
+                    <span class="glyphicon glyphicon-calendar"></span> Reservar
                 </a>
             </td>
         </tr>

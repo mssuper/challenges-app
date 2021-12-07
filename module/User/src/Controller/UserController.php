@@ -10,6 +10,7 @@ use User\Entity\Rooms;
 use User\Form\PasswordChangeForm;
 use User\Form\PasswordResetForm;
 use User\Form\UserForm;
+use User\Form\RoomForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
@@ -33,12 +34,19 @@ class UserController extends AbstractActionController
     private $userManager;
 
     /**
+     * Gerenciador de Salas.
+     * @var User\Service\RoomsManager
+     */
+    private $roomsManager;
+
+    /**
      * Construtor.
      */
-    public function __construct($entityManager, $userManager)
+    public function __construct($entityManager, $userManager, $RoomsManager)
     {
         $this->entityManager = $entityManager;
         $this->userManager = $userManager;
+        $this->roomsManager = $RoomsManager;
     }
 
     /**
@@ -375,9 +383,9 @@ class UserController extends AbstractActionController
      */
     public function addroomAction()
     {
+        $room ='';
         // Criar formulário de usuário
-        $form = new UserForm('create', $this->entityManager);
-
+        $form = new RoomForm('create', $this->entityManager);
         // Verifique se o usuário enviou o formulário
         if ($this->getRequest()->isPost()) {
 
@@ -392,20 +400,145 @@ class UserController extends AbstractActionController
                 // Obtenha dados filtrados e validados
                 $data = $form->getData();
 
-                // Adicionar usuário.
-                $user = $this->userManager->addUser($data);
+                // Adicionar Sala.
+                $room = $this->roomsManager->addRoom($data);
 
                 // Redirecionar para a página "visualizar"
-                return $this->redirect()->toRoute('users',
-                    ['action' => 'view', 'id' => $user->getId()]);
+                return $this->redirect()->toRoute('rooms',
+                    ['action' => 'viewroom', 'id' => $room->getId()]);
             }
+        }
+        return new ViewModel([
+            'room' => $room,
+            'form'=> $form
+        ]);
+    }
+    /**
+     * A ação "visualizar" exibe uma página que permite visualizar os detalhes do usuário.
+     */
+    public function viewroomAction()
+    {
+        // verifica se o parametro id foi associado
+        $id = (int)$this->params()->fromRoute('id', -1);
+        if ($id < 1) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        // Encontre uma sala com este ID.
+        $room = $this->entityManager->getRepository(Rooms::class)->find($id);
+
+        //Se o usuário for null significa que ele não está logado
+        if ($room == null) {
+            $this->getResponse()->setStatusCode(404);
+            return;
         }
 
         return new ViewModel([
-            'form' => $form
+            'room' => $room
         ]);
     }
 
+    /**
+     * A ação "editar" exibe uma página que permite editar o usuário.
+     */
+    public function editroomAction()
+    {
+        $id = (int)$this->params()->fromRoute('id', -1);
+        if ($id < 1) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        $room = $this->entityManager->getRepository(Rooms::class)
+            ->find($id);
+
+        if ($room == null) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        // Criar formulário de usuário
+        $form = new RoomForm('update', $this->entityManager, $room);
+
+
+        // Verifique se o usuário enviou o formulário
+        if ($this->getRequest()->isPost()) {
+
+            // Preencher o formulário com dados POST
+            $data = $this->params()->fromPost();
+
+            $form->setData($data);
+
+            // Validar formulário
+            if ($form->isValid()) {
+
+                // Obter dados filtrados e validados
+                $data = $form->getData();
+                unset($data[room_name]); //neste modelo não podemos atualizar o nome da sala
+
+                // Atualize o usuário.
+                $this->roomsManager->updateRoom($room, $data);
+
+                // Redirecionar para a página "visualizar"
+                return $this->redirect()->toRoute('users',
+                    ['action' => 'viewroom', 'id' => $room->getId()]);
+            }
+        } else {
+            $form->setData(array(
+                'room_name' => $room->getRoomName(),
+                'area' => $room->getArea(),
+                'status' => $room->getStatus(),
+            ));
+        }
+
+        return new ViewModel(array(
+            'room' => $room,
+            'form' => $form
+        ));
+    }
+
+
+    /**
+     * A ação "editar" exibe uma página que permite editar o usuário.
+     */
+    public function deleteroomAction(){
+        $id = (int)$this->params()->fromRoute('id', -1);
+        if ($id < 1) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        $room = $this->entityManager->getRepository(Rooms::class)
+            ->find($id);
+
+        if ($room == null) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+            $this->roomsManager->deleteRoom($id);
+            return $this->redirect()->toRoute('rooms');
+    }
+    /**
+     * A ação "editar" exibe uma página que permite editar o usuário.
+     */
+    public function scheduleroomAction(){
+        $id = (int)$this->params()->fromRoute('id', -1);
+        if ($id < 1) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+
+        $room = $this->entityManager->getRepository(Rooms::class)
+            ->find($id);
+
+        if ($room == null) {
+            $this->getResponse()->setStatusCode(404);
+            return;
+        }
+        $this->roomsManager->deleteRoom($id);
+        return $this->redirect()->toRoute('rooms');
+    }
 
 }
 

@@ -26,14 +26,14 @@ class RoomForm extends Form
 
     /**
      * Usuário atual.
-     * @var User\Entity\User
+     * @var User\Entity\Rooms
      */
-    private $user = null;
+    private $rooms = null;
 
     /**
      * Construtor.
      */
-    public function __construct($scenario = 'create', $entityManager = null, $user = null)
+    public function __construct($scenario = 'create', $entityManager = null, $rooms = null)
     {
         // Definir o nome do formulário
         parent::__construct('room-form');
@@ -44,7 +44,7 @@ class RoomForm extends Form
         // Salve os parâmetros para uso interno.
         $this->scenario = $scenario;
         $this->entityManager = $entityManager;
-        $this->user = $user;
+        $this->rooms = $rooms;
 
         $this->addElements();
         $this->addInputFilter();
@@ -55,23 +55,38 @@ class RoomForm extends Form
      */
     protected function addElements()
     {
-        // Adicionar campo "email"
+        // Adicionar campo "nome somente na criação"
+        if ($this->scenario==='update') {
+            $this->add([
+                'type' => 'text',
+                'name' => 'room_name',
+                'attributes' => [
+                        'readonly' => true,
+                        ],
+                'options' => [
+                    'label' => 'Nome',
+                ],
+            ]);
+        }else
+        {
+            $this->add([
+                'type' => 'text',
+                'name' => 'room_name',
+                'options' => [
+                    'label' => 'Nome',
+                ],
+            ]);
+        }
+        // Adicionar campo "área"
         $this->add([
             'type' => 'text',
             'name' => 'area',
             'options' => [
-                'label' => 'Area',
+                'label' => 'Area m2',
             ],
         ]);
 
-        // Adicionar campo "full_name"
-        $this->add([
-            'type' => 'text',
-            'name' => 'room_name',
-            'options' => [
-                'label' => 'Nome',
-            ],
-        ]);
+
 
         // Adicionar campo "status"
         $this->add([
