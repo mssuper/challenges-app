@@ -20,18 +20,15 @@ class Version20211206234607 extends AbstractMigration
      */
     public function up(Schema $schema)
     {
-        // this up() migration is auto-generated, please modify it to your needs
+        // esta migração up() é gerada automaticamente, modifique-a de acordo com suas necessidades
         $table = $schema->createTable('rooms');
         $table->addColumn('idroom', 'integer', ['autoincrement' => true]);
-        $table->addColumn('email', 'string', ['notnull' => true, 'length' => 128]);
-        $table->addColumn('full_name', 'string', ['notnull' => true, 'length' => 512]);
-        $table->addColumn('password', 'string', ['notnull' => true, 'length' => 256]);
+        $table->addColumn('area', 'integer', ['notnull' => true]);
+        $table->addColumn('room_name', 'string', ['notnull' => true, 'length' => 128]);
         $table->addColumn('status', 'integer', ['notnull' => true]);
         $table->addColumn('date_created', 'datetime', ['notnull' => true]);
-        $table->addColumn('pwd_reset_token', 'string', ['notnull' => false, 'length' => 256]);
-        $table->addColumn('pwd_reset_token_creation_date', 'datetime', ['notnull' => false]);
-        $table->setPrimaryKey(['id']);
-        $table->addUniqueIndex(['email'], 'email_idx');
+        $table->setPrimaryKey(['idroom']);
+        $table->addUniqueIndex(['room_name'], 'room_name_idx');
         $table->addOption('engine', 'InnoDB');
 
     }
@@ -42,6 +39,6 @@ class Version20211206234607 extends AbstractMigration
     public function down(Schema $schema)
     {
         // this down() migration is auto-generated, please modify it to your needs
-
+        $schema->dropTable('rooms');
     }
 }

@@ -40,7 +40,7 @@ class IndexController extends AbstractActionController
      */
     public function aboutAction()
     {
-        $appName = 'App-Challenges';
+        $appName = 'App-Challenge';
         $appDescription = 'Este é um demo para exercício e de como implementar PHP com Zend Framework 3';
 
         // Retorna variáveis ​ para visualizar o script com a ajuda de

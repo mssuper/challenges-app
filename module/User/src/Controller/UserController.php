@@ -6,6 +6,7 @@ use Application\Entity\Post;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use User\Entity\User;
+use User\Entity\Rooms;
 use User\Form\PasswordChangeForm;
 use User\Form\PasswordResetForm;
 use User\Form\UserForm;
@@ -354,12 +355,11 @@ class UserController extends AbstractActionController
             'form' => $form
         ]);
     }
-    public function salasAction()
+    public function roomsAction()
     {
         $page = $this->params()->fromQuery('page', 1);
 
-        $query = $this->entityManager->getRepository(User::class)
-            ->findAllUsers();
+        $query = $this->entityManager->getRepository(Rooms::class)->findAllRooms();
 
         $adapter = new DoctrineAdapter(new ORMPaginator($query, false));
         $paginator = new Paginator($adapter);
@@ -367,7 +367,7 @@ class UserController extends AbstractActionController
         $paginator->setCurrentPageNumber($page);
 
         return new ViewModel([
-            'users' => $paginator
+            'rooms' => $paginator
         ]);
     }
 }

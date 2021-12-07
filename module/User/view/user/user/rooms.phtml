@@ -1,0 +1,61 @@
+<?php
+$this->headTitle('Users');
+
+$this->mainMenu()->setActiveItemId('users');
+
+$this->pageBreadcrumbs()->setItems([
+    'Início' => $this->url('home'),
+    'Rooms' => $this->url('rooms'),]);
+?>
+
+<h1>Gerenciar Salas</h1>
+
+<p>
+    <a class="btn btn-default" href="
+    <?= $this->url('rooms', ['action' => 'add']); ?>">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nova Sala
+    </a>
+</p>
+
+<table class="table table-striped">
+
+    <tr>
+        <th>IDSala</th>
+        <th>Area</th>
+        <th>Nome da Sala</th>
+        <th>Data de Criação</th>
+        <th>Status</th>
+        <th>Ações</th>
+    </tr>
+
+    <?php foreach ($rooms as $room): ?>
+
+        <tr>
+            <td><?= $this->escapeHtml($room->getId()); ?></td>
+            <td>
+                <a href="<?= $this->url('users', ['action' => 'view', 'id' => $room->getId()]); ?>">
+                    <?= $this->escapeHtml($room->getArea()); ?>
+                </a>
+            </td>
+            <td><?= $this->escapeHtml($room->getName()); ?></a>
+            </td>
+            <td><?= $this->escapeHtml($room->getDateCreated()); ?></td>
+            <td><?= $this->escapeHtml($room->getStatusAsString()); ?></td>
+            <td>
+                <a class="btn btn-info" href="<?= $this->url('rooms',
+                    ['action' => 'edit', 'id' => $room->getId()]); ?>">
+                    <span class="glyphicon glyphicon-pencil"></span> Editar
+                </a>
+            </td>
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+<?= $this->paginationControl($rooms,
+    'Sliding',
+    'user/partial/paginator',
+    array('route' => 'rooms')); ?>
+
+
