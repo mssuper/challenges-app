@@ -11,6 +11,10 @@ use Zend\Math\Rand;
 use Zend\Mime\Message as MimeMessage;
 use Zend\Mime\Part as MimePart;
 
+
+
+
+
 /**
  * Este serviço é responsável por adicionar / editar usuários
  * e alteração da senha do usuário.
@@ -52,7 +56,7 @@ class UserManager
     {
         // Não permite vários usuários com o mesmo endereço de e-mail.
         if ($this->checkUserExists($data['email'])) {
-            throw new \Exception("User with email address " . $data['$email'] . " already exists");
+            throw new \Exception("Usuário com endereço de e-mail " . $data['$email'] . " já existe");
         }
 
         // Cria uma nova entidade de usuário.
@@ -98,7 +102,7 @@ class UserManager
     {
         // Não permite alterar o e-mail do usuário se outro usuário com esse e-mail já existir.
         if ($user->getEmail() != $data['email'] && $this->checkUserExists($data['email'])) {
-            throw new \Exception("Another user with email address " . $data['email'] . " already exists");
+            throw new \Exception("Outro usuário com endereço de e-mail " . $data['email'] . " já existe");
         }
 
         $user->setEmail($data['email']);
@@ -127,7 +131,6 @@ class UserManager
             $user->setPassword($passwordHash);
             $user->setStatus(User::STATUS_ACTIVE);
             $user->setDateCreated(date('Y-m-d H:i:s'));
-
             $this->entityManager->persist($user);
             $this->entityManager->flush();
         }
@@ -141,7 +144,7 @@ class UserManager
     public function generatePasswordResetToken($user)
     {
         if ($user->getStatus() != User::STATUS_ACTIVE) {
-            throw new \Exception('Cannot generate password reset token for inactive user ' . $user->getEmail());
+            throw new \Exception('Não é possível gerar token de redefinição de senha para usuário inativo ' . $user->getEmail());
         }
 
         // Gere um token.

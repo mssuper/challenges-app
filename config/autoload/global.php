@@ -11,6 +11,7 @@
  * Arquivo.
  */
 
+use Doctrine\DBAL\Driver\PDOMySql\Driver as PDOMySqlDriver;
 use Zend\Session\Storage\SessionArrayStorage;
 use Zend\Session\Validator\HttpUserAgent;
 use Zend\Session\Validator\RemoteAddr;
@@ -43,6 +44,21 @@ return [
                 'table' => 'migrations',
             ],
 
+        ],
+        // Configuração da conexão do banco de dados.
+        'connection' => [
+            'orm_default' => [
+                'driverClass' => PDOMySqlDriver::class,
+                'params' => [
+                    'host' => 'localhost',
+                    'user' => 'challenges-app',
+                    'password' => 'FVN5jmJldbtTGgA7',
+                    'dbname' => 'challenges-app',
+                    'driverOptions' => [
+                        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"
+                    ]
+                ],
+            ],
         ],
     ],
 ];

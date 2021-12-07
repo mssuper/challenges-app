@@ -34,7 +34,7 @@ class PasswordResetForm extends Form
             'type' => 'email',
             'name' => 'email',
             'options' => [
-                'label' => 'Your E-mail',
+                'label' => 'Seu Email',
             ],
         ]);
 
@@ -77,7 +77,7 @@ class PasswordResetForm extends Form
             'type' => 'submit',
             'name' => 'submit',
             'attributes' => [
-                'value' => 'Reset Password',
+                'value' => 'Redefinir Senha',
                 'id' => 'submit',
             ],
         ]);

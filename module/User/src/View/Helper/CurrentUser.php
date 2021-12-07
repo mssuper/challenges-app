@@ -58,7 +58,7 @@ class CurrentUser extends AbstractHelper
             if ($this->user == null) {
                 // Opa.. a identidade é apresentada na sessão, mas não existe tal usuário no banco de dados.
                 // Lançamos uma exceção, porque este é um possível problema de segurança.
-                throw new \Exception('Not found user with such ID');
+                throw new \Exception('Usuário não encontrado com este ID');
             }
 
             // Retorna a entidade User que encontramos.

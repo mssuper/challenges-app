@@ -68,7 +68,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\AuthController::class => Controller\Factory\AuthControllerFactory::class,
-            Controller\UserController::class => Controller\Factory\RoomsControllerFactory::class,
+            Controller\UserController::class => Controller\Factory\UserControllerFactory::class,
         ],
     ],
     // Registramos plug-ins de controlador fornecidos por módulo nesta chave.

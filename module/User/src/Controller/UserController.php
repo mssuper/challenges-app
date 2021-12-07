@@ -221,10 +221,10 @@ class UserController extends AbstractActionController
                 // Tente alterar a senha.
                 if (!$this->userManager->changePassword($user, $data)) {
                     $this->flashMessenger()->addErrorMessage(
-                        'Sorry, the old password is incorrect. Could not set the new password.');
+                        'Desculpe, a senha antiga está incorreta. Não foi possível definir a nova senha.');
                 } else {
                     $this->flashMessenger()->addSuccessMessage(
-                        'Changed the password successfully.');
+                        'Senha alterado com sucesso.');
                 }
 
                 // Redirecionar para a página "visualizar"
@@ -293,7 +293,7 @@ class UserController extends AbstractActionController
 
         // Valide o argumento de entrada.
         if ($id != 'invalid-email' && $id != 'sent' && $id != 'set' && $id != 'failed') {
-            throw new \Exception('Invalid message ID specified');
+            throw new \Exception('ID de mensagem especificado é inválido');
         }
 
         return new ViewModel([
@@ -311,7 +311,7 @@ class UserController extends AbstractActionController
 
         // Validar o comprimento do token
         if ($token != null && (!is_string($token) || strlen($token) != 32)) {
-            throw new \Exception('Invalid token type or length');
+            throw new \Exception('Tipo ou comprimento de token inválido');
         }
 
         if ($token === null ||

@@ -58,6 +58,27 @@ No linux
 No Windows
 vendor\bin\doctrine-module.bat migrations:migrate
 ```
+O Resultado será algo como:
+C:\Users\Marcelo\Documents\Zend\projeto\challenges-app>vendor\bin\doctrine-module.bat migrations:migrate
+Loading configuration from the integration code of your framework (setter).
+
+                    Doctrine Database Migrations
+
+
+WARNING! You are about to execute a database migration that could result in schema changes and data lost. Are you sure you wish to continue? (y/n)y
+Migrating up to 20160924162137 from 0
+
+++ migrating 20160924162137
+
+     -> CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(128) NOT NULL, full_name VARCHAR(512) NOT NULL, password VARCHAR(256) NOT NULL, status INT NOT NULL, date_created DATETIME NOT NULL, pwd_reset_token VARCHAR(256) DEFAULT NULL, pwd_reset_token_creation_date DATETIME DEFAULT NULL, UNIQUE INDEX email_idx (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB
+
+++ migrated (1.53s)
+
+  ------------------------
+
+++ finished in 1.53s
+++ 1 migrations executed
+++ 1 sql queries
 
 Agora você deve conseguir ver o site de Demonstração do Usuário visitando o link "http://localhost:8080".
 

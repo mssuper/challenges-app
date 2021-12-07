@@ -44,7 +44,7 @@ class PasswordChangeForm extends Form
                 'type' => 'password',
                 'name' => 'old_password',
                 'options' => [
-                    'label' => 'Old Password',
+                    'label' => 'Senha Atual',
                 ],
             ]);
         }
@@ -54,7 +54,7 @@ class PasswordChangeForm extends Form
             'type' => 'password',
             'name' => 'new_password',
             'options' => [
-                'label' => 'New Password',
+                'label' => 'Nova Senha',
             ],
         ]);
 
@@ -63,7 +63,7 @@ class PasswordChangeForm extends Form
             'type' => 'password',
             'name' => 'confirm_new_password',
             'options' => [
-                'label' => 'Confirm new password',
+                'label' => 'Confirmar nova senha',
             ],
         ]);
 
@@ -83,7 +83,7 @@ class PasswordChangeForm extends Form
             'type' => 'submit',
             'name' => 'submit',
             'attributes' => [
-                'value' => 'Change Password'
+                'value' => 'Alterar Senha'
             ],
         ]);
     }

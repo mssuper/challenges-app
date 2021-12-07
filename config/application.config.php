@@ -63,6 +63,6 @@ return [
     //],
 
     // Configuração inicial com a qual propagar o ServiceManager.
-    // Deve ser compatível com Zend \ ServiceManager \ Config.
+    // Deve ser compatível com Zend\ServiceManager\Config.
     // 'service_manager' => [],
 ];

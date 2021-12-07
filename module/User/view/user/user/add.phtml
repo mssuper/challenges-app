@@ -11,12 +11,13 @@ $this->pageBreadcrumbs()->setItems([
 
 $form->get('email')->setAttributes([
     'class' => 'form-control',
-    'placeholder' => 'name@example.com'
+    'placeholder' => 'nome@exemplo.com.br'
 ]);
 
 $form->get('full_name')->setAttributes([
     'class' => 'form-control',
-    'placeholder' => 'Nome'
+    'placeholder' => 'Nome Completo',
+    'value' => 'Nome Completo'
 ]);
 
 $form->get('status')->setAttributes([
@@ -24,14 +25,15 @@ $form->get('status')->setAttributes([
 ]);
 
 $form->get('password')->setAttributes([
-    'class' => 'form-control'
+    'class' => 'form-control',
+    'value' => 'Senha'
 ]);
 
 $form->get('confirm_password')->setAttributes([
     'class' => 'form-control'
 ]);
 
-$form->get('submit')->setAttributes(['class' => 'btn btn-primary']);
+$form->get('submit')->setAttributes(['class' => 'btn btn-primary', 'value'=>'Criar']);
 
 $form->prepare();
 ?>
