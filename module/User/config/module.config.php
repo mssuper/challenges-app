@@ -63,6 +63,20 @@ return [
                     ],
                 ],
             ],
+            'salas' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/salas[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[a-zA-Z0-9_-]*',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\UserController::class,
+                        'action' => 'salas',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
@@ -89,7 +103,7 @@ return [
                 // para ninguém.
                 ['actions' => ['resetPassword', 'message', 'setPassword'], 'allow' => '*'],
                 // Dê acesso às ações "index", "add", "edit", "view", "changePassword" apenas para usuários autorizados.
-                ['actions' => ['index', 'add', 'edit', 'view', 'changePassword'], 'allow' => '@']
+                ['actions' => ['index', 'add', 'edit', 'view', 'changePassword','salas'], 'allow' => '@']
             ],
         ]
     ],

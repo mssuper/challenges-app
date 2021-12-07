@@ -59,6 +59,17 @@ class NavManager
                 'float' => 'right'
             ];
         } else {
+            $items[] = [
+                'id' => 'salas',
+                'label' => 'Salas',
+                'dropdown' => [
+                    [
+                        'id' => 'Salas',
+                        'label' => 'Gerenciar Salas',
+                        'link' => $url('salas')
+                    ]
+                ]
+            ];
 
             $items[] = [
                 'id' => 'admin',

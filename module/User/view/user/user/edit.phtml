@@ -4,9 +4,9 @@ $this->headTitle('Editar usuário');
 $this->mainMenu()->setActiveItemId('users');
 
 $this->pageBreadcrumbs()->setItems([
-    'Home' => $this->url('home'),
-    'Manage Users' => $this->url('users'),
-    'Edit User' => $this->url('users', ['action' => 'edit', 'id' => $user->getId()])
+    'Início' => $this->url('home'),
+    'Gerenciar Usuário' => $this->url('users'),
+    'Editar Usuário' => $this->url('users', ['action' => 'edit', 'id' => $user->getId()])
 ]);
 
 $form->get('email')->setAttributes([

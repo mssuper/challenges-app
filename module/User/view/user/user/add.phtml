@@ -4,9 +4,9 @@ $this->headTitle('Adicionar usuário');
 $this->mainMenu()->setActiveItemId('users');
 
 $this->pageBreadcrumbs()->setItems([
-    'Home' => $this->url('home'),
-    'Manage Users' => $this->url('users'),
-    'Add User' => $this->url('users', ['action' => 'add'])
+    'Início' => $this->url('home'),
+    'Gerenciar Usuário' => $this->url('users'),
+    'Adicionar Usuário' => $this->url('users', ['action' => 'add'])
 ]);
 
 $form->get('email')->setAttributes([

@@ -4,9 +4,9 @@ $this->headTitle('Ver Usuário');
 $this->mainMenu()->setActiveItemId('users');
 
 $this->pageBreadcrumbs()->setItems([
-    'Home' => $this->url('home'),
-    'Manage Users' => $this->url('users'),
-    'View User' => $this->url('users', ['action' => 'view', 'id' => $user->getId()])
+    'Início' => $this->url('home'),
+    'Gerenciar Usuário' => $this->url('users'),
+    'Ver Usuário' => $this->url('users', ['action' => 'view', 'id' => $user->getId()])
 ]);
 ?>
 
@@ -14,7 +14,7 @@ $this->pageBreadcrumbs()->setItems([
 <?= $this->flashMessenger()->render('success', ['alert', 'alert-success']); ?>
 <?= $this->flashMessenger()->render('info', ['alert', 'alert-info']); ?>
 
-<h1>View User</h1>
+<h1>Visualizar Usuário</h1>
 
 <div class="row">
     <div class="col-md-6">
@@ -30,12 +30,12 @@ $this->pageBreadcrumbs()->setItems([
                 <?= $this->escapeHtml($user->getEmail()) ?></th>
             </tr>
             <tr>
-                <th>Full Name:</th>
+                <th>Nome Completo:</th>
                 <td>
                 <?= $this->escapeHtml($user->getFullName()) ?></th>
             </tr>
             <tr>
-                <th>Date Created:</th>
+                <th>Data de Criação:</th>
                 <td>
                 <?= $this->escapeHtml($user->getDateCreated()) ?></th>
             </tr>

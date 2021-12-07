@@ -27,21 +27,21 @@
         if ($e) :
             ?>
             <hr/>
-            <h2>Previous exceptions:</h2>
+            <h2>Exceções anteriores:</h2>
             <ul class="unstyled">
                 <?php while ($e) : ?>
                     <li>
                         <h3><?= get_class($e) ?></h3>
                         <dl>
-                            <dt>File:</dt>
+                            <dt>Arquivo:</dt>
                             <dd>
                                 <pre class="prettyprint linenums"><?= $e->getFile() ?>:<?= $e->getLine() ?></pre>
                             </dd>
-                            <dt>Message:</dt>
+                            <dt>Mensagem:</dt>
                             <dd>
                                 <pre class="prettyprint linenums"><?= $this->escapeHtml($e->getMessage()) ?></pre>
                             </dd>
-                            <dt>Stack trace:</dt>
+                            <dt>Rastreamento de pilha:</dt>
                             <dd>
                                 <pre class="prettyprint linenums"><?= $this->escapeHtml($e->getTraceAsString()) ?></pre>
                             </dd>

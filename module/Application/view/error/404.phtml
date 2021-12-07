@@ -31,14 +31,14 @@
 <?php if (isset($this->controller) && $this->controller): ?>
 
     <dl>
-        <dt>Controller:</dt>
+        <dt>Controlador:</dt>
         <dd><?= $this->escapeHtml($this->controller) ?>
             <?php
             if (isset($this->controller_class)
                 && $this->controller_class
                 && $this->controller_class != $this->controller
             ) {
-                echo '(' . sprintf('resolves to %s', $this->escapeHtml($this->controller_class)) . ')';
+                echo '(' . sprintf('resolve para %s', $this->escapeHtml($this->controller_class)) . ')';
             }
             ?>
         </dd>
@@ -78,15 +78,15 @@
                     <li>
                         <h3><?= get_class($e) ?></h3>
                         <dl>
-                            <dt>File:</dt>
+                            <dt>Arquivo:</dt>
                             <dd>
                                 <pre class="prettyprint linenums"><?= $e->getFile() ?>:<?= $e->getLine() ?></pre>
                             </dd>
-                            <dt>Message:</dt>
+                            <dt>Mensagem:</dt>
                             <dd>
                                 <pre class="prettyprint linenums"><?= $e->getMessage() ?></pre>
                             </dd>
-                            <dt>Stack trace:</dt>
+                            <dt>Rastreamento de pilha:</dt>
                             <dd>
                                 <pre class="prettyprint linenums"><?= $e->getTraceAsString() ?></pre>
                             </dd>
@@ -106,7 +106,7 @@
 
     <?php else: ?>
 
-        <h3>Nenhuma exceção disponível</h3>
+        <h3>Mais nenhuma exceção disponível</h3>
 
     <?php endif ?>
 

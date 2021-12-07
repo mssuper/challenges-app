@@ -28,8 +28,8 @@ class UserExistsValidator extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = array(
-        self::NOT_SCALAR => "The email must be a scalar value",
-        self::USER_EXISTS => "Another user with such an email already exists"
+        self::NOT_SCALAR => "O e-mail deve ser um valor escalar",
+        self::USER_EXISTS => "Já existe outro usuário com esse e-mail"
     );
 
     /**

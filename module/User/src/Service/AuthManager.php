@@ -48,7 +48,7 @@ class AuthManager
         // Verifique se o usuário já está logado. Em caso afirmativo, não permita o login
         // duas vezes.
         if ($this->authService->getIdentity() != null) {
-            throw new \Exception('Already logged in');
+            throw new \Exception('já logado');
         }
 
         // Autentica com login / senha.
@@ -75,7 +75,7 @@ class AuthManager
     {
         // Permitir o logout apenas quando o usuário estiver logado.
         if ($this->authService->getIdentity() == null) {
-            throw new \Exception('The user is not logged in');
+            throw new \Exception('TO usuário não está logado');
         }
 
         // Remova a identidade da sessão.
@@ -100,7 +100,7 @@ class AuthManager
         // O modo restritivo é mais seguro e recomendado para uso.
         $mode = isset($this->config['options']['mode']) ? $this->config['options']['mode'] : 'restrictive';
         if ($mode != 'restrictive' && $mode != 'permissive')
-            throw new \Exception('Invalid access filter mode (expected either restrictive or permissive mode');
+            throw new \Exception('Modo de filtro de acesso inválido (esperado modo restritivo ou permissivo');
 
         if (isset($this->config['controllers'][$controllerName])) {
             $items = $this->config['controllers'][$controllerName];

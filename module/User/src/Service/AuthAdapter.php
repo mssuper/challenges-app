@@ -72,7 +72,7 @@ class AuthAdapter implements AdapterInterface
             return new Result(
                 Result::FAILURE_IDENTITY_NOT_FOUND,
                 null,
-                ['Invalid credentials.']);
+                ['Credenciais inválidas.']);
         }
 
         // Se o usuário com esse e-mail existe, precisamos verificar se ele está ativo ou retirado.
@@ -81,7 +81,7 @@ class AuthAdapter implements AdapterInterface
             return new Result(
                 Result::FAILURE,
                 null,
-                ['User is retired.']);
+                ['O usuário está desativado.']);
         }
 
         // Agora precisamos calcular o hash com base na senha inserida pelo usuário e comparar
@@ -95,14 +95,14 @@ class AuthAdapter implements AdapterInterface
             return new Result(
                 Result::SUCCESS,
                 $this->email,
-                ['Authenticated successfully.']);
+                ['Autenticado com Sucesso.']);
         }
 
         // Se a verificação da senha não passou, retornou o status de falha 'Credencial inválido'.
         return new Result(
             Result::FAILURE_CREDENTIAL_INVALID,
             null,
-            ['Invalid credentials.']);
+            ['Credenciais inválidas.']);
     }
 }
 
