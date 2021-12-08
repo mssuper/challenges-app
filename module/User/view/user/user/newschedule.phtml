@@ -1,0 +1,58 @@
+<?php
+$this->headTitle('Adicionar Sala');
+
+$this->mainMenu()->setActiveItemId('rooms');
+
+$this->pageBreadcrumbs()->setItems([
+    'Início' => $this->url('home'),
+    'Gerenciar Salas' => $this->url('rooms'),
+    'Adicionar Sala' => $this->url('rooms', ['action' => 'addroom'])
+]);
+
+$form->get('area')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Area da Sala'
+]);
+
+$form->get('room_name')->setAttributes([
+    'class' => 'form-control',
+    'placeholder' => 'Nome',
+    'value' => 'Nome da Sala'
+]);
+
+$form->get('status')->setAttributes([
+    'class' => 'form-control'
+]);
+
+$form->get('submit')->setAttributes(['class' => 'btn btn-primary', 'value'=>'Criar']);
+
+$form->prepare();
+?>
+
+<h1>Adicionar Sala</h1>
+
+<p>
+    Por favor, preencha o seguinte formulário e clique no botão <i>Criar</i>.
+</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <?= $this->form()->openTag($form); ?>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('appointment-date-time')); ?>
+            <?= $this->formElement($form->get('appointment-date-time')); ?>
+            <?= $this->formElementErrors($form->get('appointment-date-time')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('rooms')); ?>
+            <?= $this->formElement($form->get('rooms')); ?>
+            <?= $this->formElementErrors($form->get('rooms')); ?>
+        </div>
+       <?= $this->formElement($form->get('submit')); ?>
+
+        <?= $this->form()->closeTag(); ?>
+    </div>
+</div>   
+

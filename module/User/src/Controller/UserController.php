@@ -12,6 +12,7 @@ use User\Form\PasswordChangeForm;
 use User\Form\PasswordResetForm;
 use User\Form\UserForm;
 use User\Form\RoomForm;
+use User\Form\ScheduleForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
@@ -565,6 +566,37 @@ class UserController extends AbstractActionController
         return new ViewModel([
             'ScheduleQuery' => $query
         ]);
+    }
+    public function newscheduleAction(){
+
+        // Criar formulário de usuário
+        $form = new ScheduleForm('create', $this->entityManager);
+        // Verifique se o usuário enviou o formulário
+        if ($this->getRequest()->isPost()) {
+
+            // Preencher o formulário com dados POST
+            $data = $this->params()->fromPost();
+
+            $form->setData($data);
+
+            // Validar formulário
+            if ($form->isValid()) {
+
+                // Obtenha dados filtrados e validados
+                $data = $form->getData();
+
+                // Adicionar Sala.
+                $room = $this->roomsManager->addRoom($data);
+
+                // Redirecionar para a página "visualizar"
+                return $this->redirect()->toRoute('rooms',
+                    ['action' => 'viewroom', 'id' => $room->getId()]);
+            }
+        }
+        return new ViewModel([
+            'form'=> $form
+        ]);
+
     }
 
 
