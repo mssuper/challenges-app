@@ -129,7 +129,8 @@ return [
             Service\AuthManager::class => Service\Factory\AuthManagerFactory::class,
             Service\UserManager::class => Service\Factory\UserManagerFactory::class,
             Service\RoomsManager::class => Service\Factory\RoomsManagerFactory::class,
-            Service\RoomsManagerFactory::class => Service\Factory\RoomsManagerFactoryFactory::class,
+            Service\ScheduleRoomsManager::class => Service\Factory\ScheduleRoomsManagerFactory::class,
+
 
         ],
     ],

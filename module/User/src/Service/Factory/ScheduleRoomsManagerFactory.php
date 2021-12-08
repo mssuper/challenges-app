@@ -9,7 +9,7 @@ use User\Service\ScheduleRoomsManager;
  * Esta é a classe de fábrica para o serviço ScheduleRoomsManager. O propósito da fábrica
  * é instanciar o serviço e passar dependências (injetar dependências).
  */
-class RoomsManagerFactory
+class ScheduleRoomsManagerFactory
 {
     /**
      * Este método cria o serviço ScheduleRoomsManager e retorna sua instância.
@@ -20,6 +20,6 @@ class RoomsManagerFactory
         $viewRenderer = $container->get('ViewRenderer');
         $config = $container->get('Config');
 
-        return new RoomsManager($entityManager, $viewRenderer, $config);
+        return new ScheduleRoomsManager($entityManager, $viewRenderer, $config);
     }
 }
