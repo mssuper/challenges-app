@@ -77,6 +77,21 @@ return [
                     ],
                 ],
             ],
+
+            'schroom'  => [
+                'type' => Segment::class,
+                'options' => [
+                    'route' => '/rooms[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[a-zA-Z0-9_-]*',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\UserController::class,
+                        'action' => 'rooms',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
@@ -114,6 +129,7 @@ return [
             Service\AuthManager::class => Service\Factory\AuthManagerFactory::class,
             Service\UserManager::class => Service\Factory\UserManagerFactory::class,
             Service\RoomsManager::class => Service\Factory\RoomsManagerFactory::class,
+            Service\RoomsManagerFactory::class => Service\Factory\RoomsManagerFactoryFactory::class,
 
         ],
     ],

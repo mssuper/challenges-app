@@ -67,7 +67,13 @@ class NavManager
                         'id' => 'Rooms',
                         'label' => 'Gerenciar Salas',
                         'link' => $url('rooms')
+                    ],
+                    [
+                    'id' => 'Schedule',
+                    'label' => 'Agendamento',
+                    'link' => $url('schroom')
                     ]
+
                 ]
             ];
 

@@ -39,14 +39,22 @@ class UserController extends AbstractActionController
      */
     private $roomsManager;
 
+
+    /**
+     * Gerenciador de Salas.
+     * @var User\Service\ScheduleRoomsManager
+     */
+    private $ScheduleRoomsManager;
+
     /**
      * Construtor.
      */
-    public function __construct($entityManager, $userManager, $RoomsManager)
+    public function __construct($entityManager, $userManager, $RoomsManager, $ScheduleRoomsManager)
     {
         $this->entityManager = $entityManager;
         $this->userManager = $userManager;
         $this->roomsManager = $RoomsManager;
+        $this->ScheduleRoomsManager= $ScheduleRoomsManager;
     }
 
     /**
@@ -363,6 +371,9 @@ class UserController extends AbstractActionController
             'form' => $form
         ]);
     }
+    /**
+     * Esta ação exibe a página inicial de salas.
+     */
     public function roomsAction()
     {
         $page = $this->params()->fromQuery('page', 1);
@@ -414,7 +425,7 @@ class UserController extends AbstractActionController
         ]);
     }
     /**
-     * A ação "visualizar" exibe uma página que permite visualizar os detalhes do usuário.
+     * A ação "visualizar" exibe uma página que permite visualizar os detalhes da Sala.
      */
     public function viewroomAction()
     {
@@ -440,7 +451,7 @@ class UserController extends AbstractActionController
     }
 
     /**
-     * A ação "editar" exibe uma página que permite editar o usuário.
+     * A ação "editar" exibe uma página que permite editar os dados da Sala.
      */
     public function editroomAction()
     {
@@ -500,7 +511,7 @@ class UserController extends AbstractActionController
 
 
     /**
-     * A ação "editar" exibe uma página que permite editar o usuário.
+     * A ação "deleteroom" exclui a sala selecionada.
      */
     public function deleteroomAction(){
         $id = (int)$this->params()->fromRoute('id', -1);
@@ -522,7 +533,7 @@ class UserController extends AbstractActionController
     /**
      * A ação "editar" exibe uma página que permite editar o usuário.
      */
-    public function scheduleroomAction(){
+    public function schroomAction(){
         $id = (int)$this->params()->fromRoute('id', -1);
         if ($id < 1) {
             $this->getResponse()->setStatusCode(404);
@@ -537,8 +548,13 @@ class UserController extends AbstractActionController
             return;
         }
         $this->roomsManager->deleteRoom($id);
-        return $this->redirect()->toRoute('rooms');
+
+        return new ViewModel(array(
+            'room' => $room,
+            'form' => $form
+        ));
     }
+
 
 }
 

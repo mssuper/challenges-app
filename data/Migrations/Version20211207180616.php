@@ -27,7 +27,6 @@ class Version20211207180616 extends AbstractMigration
         $table->addColumn('datetime_out', 'datetime', ['notnull' => true]);
         $table->addColumn('iduser', 'integer', ['notnull' => true]);
         $table->addColumn('idroom', 'integer', ['notnull' => true]);
-        $table->addColumn('status', 'integer', ['notnull' => true]);
         $table->setPrimaryKey(['idscheduleroom']);
         $table->addOption('engine', 'InnoDB');
     }

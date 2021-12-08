@@ -6,6 +6,7 @@ use Interop\Container\ContainerInterface;
 use User\Controller\UserController;
 use User\Service\UserManager;
 use User\Service\RoomsManager;
+use User\Service\ScheduleRoomsManager;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
@@ -19,8 +20,9 @@ class UserControllerFactory implements FactoryInterface
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
         $userManager = $container->get(UserManager::class);
         $RoomsManager = $container->get(RoomsManager::class);
+        $ScheduleRoomsManager =  $container->get(ScheduleRoomsManager::class);
 
         // Instancie o controlador e injete dependências
-        return new UserController($entityManager, $userManager, $RoomsManager);
+        return new UserController($entityManager, $userManager, $RoomsManager, $ScheduleRoomsManager);
     }
 }

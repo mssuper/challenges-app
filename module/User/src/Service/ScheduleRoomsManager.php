@@ -57,10 +57,10 @@ class ScheduleRoomsManager
         if (!isset($id)) {
             throw new \Exception("É Necessário um ID para exclusão da Agenda");
         }
-        $room = $this->entityManager->getRepository(ScheduleRooms::Class)->find($id);
+        $scheduleroom = $this->entityManager->getRepository(ScheduleRooms::Class)->find($id);
 
         // Remove it and flush
-        $this->entityManager->remove($room);
+        $this->entityManager->remove($scheduleroom);
         $this->entityManager->flush();
     }
 
@@ -76,19 +76,20 @@ class ScheduleRoomsManager
         }
 
         // Cria uma nova entidade de usuário.
-        $room = new Rooms();
-        $room->setRoomName($data['room_name']);
-        $room->setArea($data['area']);
-        $room->setStatus($data['status']);
+        $scheduleroom = new ScheduleRooms();
+        $scheduleroom->setDatetimeIn($data['date_in']);
+        $scheduleroom->setDatetimeOut($data['date_out']);
+        $scheduleroom-setIdUser($data['user_id']);
+        $scheduleroom->setStatus($data['status']);
         $currentDate = date('Y-m-d H:i:s');
-        $room->setDateCreated($currentDate);
+        $scheduleroom->setDateCreated($currentDate);
         // Adicione a entidade ao gerenciador de entidades.
-        $this->entityManager->persist($room);
+        $this->entityManager->persist($scheduleroom);
 
         // Aplicar mudanças ao banco de dados.
         $this->entityManager->flush();
 
-        return $room;
+        return $scheduleroom;
     }
 
     /**
