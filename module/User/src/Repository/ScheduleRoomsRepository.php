@@ -3,6 +3,7 @@
 namespace User\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use User\Entity\Rooms;
 use User\Entity\ScheduleRooms;
 
 
@@ -36,8 +37,16 @@ class ScheduleRoomsRepository extends EntityRepository
         $stmt->execute();
         return $stmt->fetchAll();
     }
+    public function findinvaliduser($id)
+    {
+        $entityManager = $this->getEntityManager();
 
+        $queryBuilder = $entityManager->createQueryBuilder();
 
-
-
+        $queryBuilder->select('u')
+            ->from(ScheduleRooms::class, 'u')
+            ->orderBy('u.dateCreated', 'DESC')
+            ->Where('u.id = '.$id);
+        return $queryBuilder->getQuery();
+    }
 }

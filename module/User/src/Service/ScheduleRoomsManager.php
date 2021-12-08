@@ -75,6 +75,7 @@ class ScheduleRoomsManager
             throw new \Exception("Uma  sala com o nome" . $data['room_name'] . " já existe");
         }
 
+
         // Cria uma nova entidade de usuário.
         $scheduleroom = new ScheduleRooms();
         $scheduleroom->setDatetimeIn($data['date_in']);
