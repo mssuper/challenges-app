@@ -71,7 +71,7 @@ class NavManager
                     [
                     'id' => 'Schedule',
                     'label' => 'Agendamento',
-                    'link' => $url('schroom')
+                    'link' => $url('schedule')
                     ]
 
                 ]

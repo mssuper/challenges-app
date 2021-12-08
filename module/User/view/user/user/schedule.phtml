@@ -1,0 +1,54 @@
+<?php
+$this->headTitle('Users');
+
+$this->mainMenu()->setActiveItemId('schedule');
+
+$this->pageBreadcrumbs()->setItems([
+    'Início' => $this->url('home'),
+    'Agendamento' => $this->url('schedule'),]);
+?>
+
+<h1>Gerenciador de Horários</h1>
+
+<p>
+    <a class="btn btn-default" href="
+    <?= $this->url('schedule', ['action' => 'newschedule']); ?>">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Novo Agendamento
+    </a>
+</p>
+
+<table class="table table-striped">
+
+    <tr>
+        <th>ID</th>
+        <th>Nome da Sala</th>
+        <th>Data/hora para registro de uso</th>
+        <th>Data/hora de entrega</th>
+        <th>Nome do Ocupante</th>
+        <th>Ações</th>
+    </tr>
+
+    <?php foreach ($ScheduleQuery as $room): ?>
+
+        <tr>
+            <td><?= $this->escapeHtml($room->getId()); ?></td>
+            <td><?= $this->escapeHtml($room->getDatetimeIn()); ?></td>
+            <td><?= $this->escapeHtml($room->getDatetimeOut());?></td>
+            <td><?= $this->escapeHtml($room->getFullName()); ?></td>
+
+            <td>
+                <a class="btn btn-info" href="<?= $this->url('schedule',
+                    ['action' => 'editschedule', 'id' => $room->getId()]); ?>">
+                    <span class="glyphicon glyphicon-pencil"></span> Editar
+                </a>
+                <a class="btn btn-info" href="<?= $this->url('rooms',
+                    ['action' => 'deleteschedule', 'id' => $room->getId()]); ?>">
+                    <span class="glyphicon glyphicon-erase"></span> Excluir
+                </a>
+            </td>
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+

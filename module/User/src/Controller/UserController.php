@@ -7,6 +7,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use User\Entity\User;
 use User\Entity\Rooms;
+use User\Entity\ScheduleRooms;
 use User\Form\PasswordChangeForm;
 use User\Form\PasswordResetForm;
 use User\Form\UserForm;
@@ -377,9 +378,7 @@ class UserController extends AbstractActionController
     public function roomsAction()
     {
         $page = $this->params()->fromQuery('page', 1);
-
         $query = $this->entityManager->getRepository(Rooms::class)->findAllRooms();
-
         $adapter = new DoctrineAdapter(new ORMPaginator($query, false));
         $paginator = new Paginator($adapter);
         $paginator->setDefaultItemCountPerPage(10);
@@ -553,6 +552,19 @@ class UserController extends AbstractActionController
             'room' => $room,
             'form' => $form
         ));
+    }
+    /**
+     * Esta ação exibe a página inicial de salas.
+     */
+    public function scheduleAction()
+    {
+        $page = $this->params()->fromQuery('page', 1);
+        $entityManager = $this->entityManager;
+        $query = $this->entityManager->getRepository(ScheduleRooms::class)->findAllscheduledRooms();
+
+        return new ViewModel([
+            'ScheduleQuery' => $query
+        ]);
     }
 
 

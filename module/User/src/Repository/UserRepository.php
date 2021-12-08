@@ -26,4 +26,5 @@ class UserRepository extends EntityRepository
 
         return $queryBuilder->getQuery();
     }
+
 }

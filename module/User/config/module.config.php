@@ -78,17 +78,17 @@ return [
                 ],
             ],
 
-            'schroom'  => [
+            'schedule'  => [
                 'type' => Segment::class,
                 'options' => [
-                    'route' => '/rooms[/:action[/:id]]',
+                    'route' => '/schedule[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[a-zA-Z0-9_-]*',
                     ],
                     'defaults' => [
                         'controller' => Controller\UserController::class,
-                        'action' => 'rooms',
+                        'action' => 'schedule',
                     ],
                 ],
             ],
@@ -118,7 +118,7 @@ return [
                 // para ninguém.
                 ['actions' => ['resetPassword', 'message', 'setPassword'], 'allow' => '*'],
                 // Dê acesso às ações "index", "add", "edit", "view", "changePassword" apenas para usuários autorizados.
-                ['actions' => ['index', 'add', 'edit', 'view', 'changePassword','rooms','deleteroom','editroom', 'viewroom','addroom','rooms','schroom'], 'allow' => '@']
+                ['actions' => ['index', 'add', 'edit', 'view', 'changePassword','rooms','deleteroom','editroom', 'viewroom','addroom','rooms','schedule'], 'allow' => '@']
             ],
         ]
     ],

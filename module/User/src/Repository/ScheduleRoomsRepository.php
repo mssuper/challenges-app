@@ -1,6 +1,5 @@
 <?php
 
-
 namespace User\Repository;
 
 use Doctrine\ORM\EntityRepository;
@@ -18,14 +17,27 @@ class ScheduleRoomsRepository extends EntityRepository
      */
     public function findAllscheduledRooms()
     {
-        $entityManager = $this->getEntityManager();
-
-        $queryBuilder = $entityManager->createQueryBuilder();
-
-        $queryBuilder->select('u')
-            ->from(ScheduleRooms::class, 'u')
-            ->orderBy('u.dateCreated', 'DESC');
-
-        return $queryBuilder->getQuery();
+        $sql='
+        SELECT
+            user.email,
+            rooms.room_name,
+            schedulerooms.datetime_in,
+            schedulerooms.datetime_out,
+            schedulerooms.idscheduleroom
+        FROM rooms
+        INNER JOIN schedulerooms
+            ON rooms.idroom = schedulerooms.idroom
+        INNER JOIN user
+            ON user.id = schedulerooms.iduser
+        ORDER BY schedulerooms.datetime_in DESC';
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
+
+
+
+
 }
