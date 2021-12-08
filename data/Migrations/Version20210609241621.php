@@ -9,7 +9,7 @@ use Doctrine\DBAL\Schema\Schema;
  * Uma Classeaula de migração. Ele atualiza o esquema do banco de dados (o move para um novo estado)
  * ou faz o downgrade para o estado anterior.
  */
-class Version20160924162137 extends AbstractMigration
+class Version20210609241621 extends AbstractMigration
 {
     /**
      * Retorna a descrição desta migração.
