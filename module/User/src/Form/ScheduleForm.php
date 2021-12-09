@@ -5,6 +5,7 @@ namespace User\Form;
 use User\Entity\Rooms;
 use User\Validator\UserExistsValidator;
 use Zend\Form\Element;
+use Zend\Form\Element\DateTimeSelect;
 use Zend\Form\Form;
 use Zend\Form\Element\Select;
 
@@ -76,19 +77,27 @@ class ScheduleForm extends Form
                 'label' => 'Area m2',
             ],
         ]);
-        $this->add([
-                'type' => 'Zend\Form\Element\DateTimeSelect',
-                'name' => 'appointment-date-time',
-                'options' => array(
-                    'label' => 'Data de agendamento',
-                    'format' => 'Y-m-d H:i:s'
-                ),
-                'attributes' => array(
-                    'min' => '2021-12-08 00:00:00',
-                    'max' => '2025-12-08 00:00:00',
-                    'step' => '60', // minutes; default step interval is 1 min
-                )
-        ]);
+
+        $datetimeselect = new DateTimeSelect;
+        $datetimeselect->setName('appointment-date-time');
+        $datetimeselect->setAttributes(array(
+            'min'  => '2010-01-01T00:00:00Z',
+            'max'  => '2020-01-01T00:00:00Z',
+            'step' => '1', // minutes; default step interval is 1 min
+        ));
+        $datetimeselect->setOptions(array(
+            'label' => 'Data de agendamento',
+            'format' => 'Y-m-d H:i:s'));
+        $datetimeselect->setValue(date('Y-m-d H:i:s'));
+        $this->add($datetimeselect);
+
+
+
+
+
+
+
+
         $data=$this->entityManager->getRepository(Rooms::class)->returnAllRooms();
        // var_dump($data);
         $roomlist = [];
