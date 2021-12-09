@@ -40,6 +40,12 @@ class UserManager
     private $config;
 
     /**
+     * Usuário corrente.
+     * @var User\Entity\User
+     */
+    private $id;
+
+    /**
      * Constrói o serviço.
      */
     public function __construct($entityManager, $viewRenderer, $config)

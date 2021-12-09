@@ -49,14 +49,22 @@ class UserController extends AbstractActionController
     private $ScheduleRoomsManager;
 
     /**
+     * Serviço de autenticação.
+     * @var \Zend\Authentication\AuthenticationService
+     */
+    private $authService;
+
+
+    /**
      * Construtor.
      */
-    public function __construct($entityManager, $userManager, $RoomsManager, $ScheduleRoomsManager)
+    public function __construct($entityManager, $userManager, $RoomsManager, $ScheduleRoomsManager, $authenticationService)
     {
         $this->entityManager = $entityManager;
         $this->userManager = $userManager;
         $this->roomsManager = $RoomsManager;
-        $this->ScheduleRoomsManager= $ScheduleRoomsManager;
+        $this->ScheduleRoomsManager = $ScheduleRoomsManager;
+        $this->authService = $authenticationService;
     }
 
     /**
@@ -65,6 +73,8 @@ class UserController extends AbstractActionController
      */
     public function indexAction()
     {
+
+
         $page = $this->params()->fromQuery('page', 1);
 
         $query = $this->entityManager->getRepository(User::class)
@@ -579,14 +589,31 @@ class UserController extends AbstractActionController
 
             $form->setData($data);
 
+
+
+
+
+
             // Validar formulário
             if ($form->isValid()) {
 
                 // Obtenha dados filtrados e validados
                 $data = $form->getData();
-
+                //validar a data
+                $explodeddate=$data['appointment-date-time'];
+                $day = $explodeddate['day'];
+                $month = $explodeddate['month'];
+                $year = $explodeddate['year'];
+                $hour = $explodeddate['hour'] + 1;
+                $minute = $explodeddate['minute'];
+                $date_out=date_create($year.'-'.$month.'-'.$day. ' '.$hour.':'.$minute.':'.'00');
+                $date_in=date_create($year.'-'.$month.'-'.$day. ' '.$explodeddate['hour'].':'.$minute.':'.'00');
+                $datasch['date_in']=$date_in;
+                $datasch['date_out']=$date_out;
+                $datasch['room_id'] = $data['rooms'];
+                $datasch['user_id'] =$user = $this->authService->getIdentity();
                 // Adicionar Sala.
-                $room = $this->roomsManager->addRoom($data);
+               // $room = $this->roomsManager->addRoom($data);
 
                 // Redirecionar para a página "visualizar"
                 return $this->redirect()->toRoute('rooms',

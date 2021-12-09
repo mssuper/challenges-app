@@ -74,16 +74,12 @@ class ScheduleRoomsManager
         if ($this->checkRoomExists($data['room_name'])) {
             throw new \Exception("Uma  sala com o nome" . $data['room_name'] . " já existe");
         }
-
-
         // Cria uma nova entidade de usuário.
         $scheduleroom = new ScheduleRooms();
         $scheduleroom->setDatetimeIn($data['date_in']);
         $scheduleroom->setDatetimeOut($data['date_out']);
-        $scheduleroom-setIdUser($data['user_id']);
-        $scheduleroom->setStatus($data['status']);
-        $currentDate = date('Y-m-d H:i:s');
-        $scheduleroom->setDateCreated($currentDate);
+        $scheduleroom->setIdUser($data['user_id']);
+        $scheduleroom->setIdRoom($data['room_id']);
         // Adicione a entidade ao gerenciador de entidades.
         $this->entityManager->persist($scheduleroom);
 

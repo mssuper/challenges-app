@@ -21,8 +21,9 @@ class UserControllerFactory implements FactoryInterface
         $userManager = $container->get(UserManager::class);
         $RoomsManager = $container->get(RoomsManager::class);
         $ScheduleRoomsManager =  $container->get(ScheduleRoomsManager::class);
+        $authenticationService = $container->get(\Zend\Authentication\AuthenticationService::class);
 
         // Instancie o controlador e injete dependências
-        return new UserController($entityManager, $userManager, $RoomsManager, $ScheduleRoomsManager);
+        return new UserController($entityManager, $userManager, $RoomsManager, $ScheduleRoomsManager,$authenticationService);
     }
 }

@@ -50,7 +50,7 @@ class AuthController extends AbstractActionController
         // URL após login bem-sucedido.
         $redirectUrl = (string)$this->params()->fromQuery('redirectUrl', '');
         if (strlen($redirectUrl) > 2048) {
-            throw new \Exception("Too long redirectUrl argument passed");
+            throw new \Exception("Argumento passado redirectUrl é muito longo ");
         }
 
         // Verifique se não temos usuários no banco de dados. Se sim, crie
@@ -93,7 +93,7 @@ class AuthController extends AbstractActionController
                         // (se alguém tentar redirecionar o usuário para outro domínio).
                         $uri = new Uri($redirectUrl);
                         if (!$uri->isValid() || $uri->getHost() != null)
-                            throw new \Exception('Incorrect redirect URL: ' . $redirectUrl);
+                            throw new \Exception('URL de redirecionamento incorreta: ' . $redirectUrl);
                     }
 
                     // Se o URL de redirecionamento for fornecido, redirecione o usuário para esse URL;
