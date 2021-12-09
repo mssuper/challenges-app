@@ -86,20 +86,21 @@ class ScheduleForm extends Form
                 'attributes' => array(
                     'min' => '2021-12-08 00:00:00',
                     'max' => '2025-12-08 00:00:00',
-                    'step' => '1', // minutes; default step interval is 1 min
+                    'step' => '60', // minutes; default step interval is 1 min
                 )
         ]);
+        $data=$this->entityManager->getRepository(Rooms::class)->returnAllRooms();
+       // var_dump($data);
+        $roomlist = [];
+        foreach ($data as $room){
+            $roomlist[$room['idroom']] = $room['room_name'];
+        }
         $this->add(array(
             'name' => 'rooms',
             'type' => Select::class,
             'options' => [
                 'label' => 'Selecione a Sala?',
-                'value_options' => [
-                    '5' => 'Sala 1',
-                    '6' => 'Sala 2',
-                    '7' => 'Sala 3',
-                    '8' => 'Sala 4'
-                ],
+                'value_options' => $roomlist,
                 'empty_option' => 'Selecione uma opção'
             ],
             'attributes' => [

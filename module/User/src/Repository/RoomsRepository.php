@@ -27,4 +27,20 @@ class RoomsRepository extends EntityRepository
 
         return $queryBuilder->getQuery();
     }
+
+    /**
+     * Retorna todos os registros
+     * @return array
+     */
+    public function returnAllRooms()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $queryBuilder = $entityManager->createQueryBuilder();
+
+        $queryBuilder->select('u')
+            ->from(Rooms::class, 'u')
+            ->orderBy('u.dateCreated', 'ASC');
+        return $queryBuilder->getQuery()->getArrayResult();
+    }
 }
